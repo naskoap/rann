@@ -32,11 +32,11 @@ Users have tried these tools and written tutorials and summaries of their experi
 
 - Optuna vs Hyperopt #1: https://neptune.ai/blog/optuna-vs-hyperopt
 
-– Optuna vs Hyperopt #2: https://www.educative.io/answers/optuna-vs-hyperopt-in-python
+- Optuna vs Hyperopt #2: https://www.educative.io/answers/optuna-vs-hyperopt-in-python
 
 - Experimental comparison of a variety of tools: https://medium.com/@gerbentempelman/comparing-hyperparameter-optimization-frameworks-in-python-a-conceptual-and-pragmatic-approach-24d9baa1cc69
 
-– Research paper on comparative study of optimization tools: https://arxiv.org/pdf/2201.06433.pdf
+- Research paper on comparative study of optimization tools: https://arxiv.org/pdf/2201.06433.pdf
 
 
 ### Repository Structure
