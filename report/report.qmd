@@ -1,0 +1,16 @@
+---
+title: "Tool Comparison: Optuna vs Hyperopt"
+author: "Audrey Bertin, Nasko Apostolov, Nelson Evbarunegbe, & Raymond Li"
+format: pdf
+editor: visual
+---
+
+# Introduction
+
+# Code Review: Optuna
+
+# Code Review: Hyperopt
+
+# Experimental Comparison
+
+# Conclusion
