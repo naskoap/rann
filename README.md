@@ -22,7 +22,9 @@ Official resources for Optuna and Hyperopt are provided below:
 
 #### Hyperopt:
 
-- GitHub Repository: https://github.com/hyperopt/hyperopt
+- GitHub Repository (Hyperopt generally): https://github.com/hyperopt/hyperopt
+
+- GitHub Repository (sci-kit learn specific implementation): https://github.com/hyperopt/hyperopt-sklearn
 
 - Documentation: http://hyperopt.github.io/hyperopt/
 
