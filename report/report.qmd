@@ -29,7 +29,48 @@ It can sometimes produce decent results, but has several downsides.
 
 This is where hyperparameter tuning tools come into play. Several tools have been developed in recent years to help simplify this process and produce better results. Some use parallel computing to test a parameters simultaneously and speed up the training process, Many have UI implementations that can help make it easier for users to compare performance across models. Additionally, modern tuning software often provides advanced techniques to help the user select the best hyperparameters, such as intelligently moving the tuning in a direction that appears to be associated with increased performance scores scores.
 
-**Optuna** (released in 2020) and **Hyperopt** (released in 2011) are two industry standard parameter optimization tools designed to integrate with Python. In this project, we compare these two tools. We start with a code review of both tools, and then conduct an experimental comparison where we train and tune a machine learning model using each.
+**Optuna** (released in 2020) and **Hyperopt** (released in 2011) are two industry standard parameter optimization tools designed to integrate with Python.
+
+#### Optuna
+
+Optuna was released into the hyperparameter tuning market at a time when there were already quite a few established and trusted tools available (including the second tool we will discuss--Hyperopt).
+
+Its creators chose to introduce Optuna after they [discovered limitations](https://odsc.com/blog/optuna-an-automatic-hyperparameter-optimization-framework/) in many other existing tuning algorithms, including that they:
+
+1.  Had instability in some environments
+2.  Were not utilizing the newest technology/advancements in hyperparameter optimization
+3.  Did not provide a way to specify which hyperparameters should be tuned directly within the Python code (instead, requiring the user to write special code just for the optimizer)
+
+The creators of Optuna attempted to fill those gaps, advertising the following features:
+
+1.  **Define-By-Run style API** -- An API style that is beginning to become industry standard in deep learning, but had not yet been applied to hyperparameter tuning prior to Optuna. Compared to an older system Define-And-Run. Using Define-By-Run allows users to write more modular code and access more complex hyperparameter spaces.
+2.  **Use of learning curves to prune trials** -- Optuna uses deep learning and gradient boosting algorithms to predict the end result of a training trial before it is over. This can help it quit unpromising trials before they complete, improving efficiency.
+3.  **Parallel distributed optimization** -- Optuna supports distributed optimization, simultaneously running multiple trials. This can dramatically speed up the tuning process and allow the user to increase the scale of how many parameters they can try.
+4.  **Visualization dashboard** - Optuna provides a UI dashboard where users can watch the optimization process and easily compare results from optimization experiments.
+
+The tool uses several advanced algorithms for tuning that go beyond standard grid search. These include:
+
+-   [Tree-Structured Parzen Estimator](https://proceedings.neurips.cc/paper_files/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf) (TPE) , a form of Bayesian optimization:
+
+-   [Gaussian Processes](https://papers.nips.cc/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf) (GP)
+
+-   [Covariance Matrix Adaptation](http://www.cmap.polytechnique.fr/~nikolaus.hansen/cmaartic.pdf) (CMA)
+
+-   [Asynchronous Successive Halving Algorithm](https://arxiv.org/pdf/1810.05934.pdf) (ASHA)
+
+Optuna is framework agnostic, meaning it can easily be integrated with any of Python's machine learning/deep learning frameworks: Scikit-Learn, PyTorch, Tensorflow, etc.
+
+The code for Optuna is publicly available on GitHub:
+
+<https://github.com/optuna/optuna>
+
+Optuna also has a custom website with tutorials, examples, and links to documentation:
+
+<https://optuna.org>
+
+#### Hyperopt
+
+In this project, we compare these two tools. We start with a code review of both tools, and then conduct an experimental comparison where we train and tune a machine learning model using each.
 
 # Code Review: Optuna
 
