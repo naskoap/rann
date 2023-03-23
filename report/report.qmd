@@ -29,7 +29,31 @@ It can sometimes produce decent results, but has several downsides.
 
 This is where hyperparameter tuning tools come into play. Several tools have been developed in recent years to help simplify this process and produce better results. Some use parallel computing to test a parameters simultaneously and speed up the training process, Many have UI implementations that can help make it easier for users to compare performance across models. Additionally, modern tuning software often provides advanced techniques to help the user select the best hyperparameters, such as intelligently moving the tuning in a direction that appears to be associated with increased performance scores scores.
 
-**Optuna** (released in 2020) and **Hyperopt** (released in 2011) are two industry standard parameter optimization tools designed to integrate with Python.
+**Hyperopt** (released in 2011) and **Optuna** (released in 2020) and are two industry standard parameter optimization tools designed to integrate with Python.
+
+#### Hyperopt
+
+Hyperopt is a popular Python library for hyperparameter optimization that has been around--and been considered industry standard--for more than a decade.
+
+It is based on Bayesian optimization techniques, specifically Sequential Model-Based Optimization (SMBO). In [SMBO](https://towardsdatascience.com/a-conceptual-explanation-of-bayesian-model-based-hyperparameter-optimization-for-machine-learning-b8172278050f), trials are run one after another, with each trial updating its hyperparameters by updating a probability model and applying Bayesian reasoning. Its goal is to maximize some "score" by modifying a configuration, and it does this by working to narrow the search space and use advanced algorithms for finding which combination of parameters can maximize the probability model.
+
+Within SMBO, it implements several advanced hyperparameter tuning methods including:
+
+-   [Tree-Structured Parzen Estimator](https://proceedings.neurips.cc/paper_files/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf) (TPE)
+
+-   [Adaptive Tree of Parzen Estimators](https://ieeexplore.ieee.org/abstract/document/9972596?casa_token=jhDtadtntFUAAAAA:WVA1tbB-x-snPuL1Yo36_kvSEXMVMyiRI6qmM3uhYUFDOCYjKt6UPoKzmI1hWvobdzqb4av4iw) (ATPE)
+
+-   [Gaussian Processes](https://papers.nips.cc/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf) (GP)
+
+Hyperopt does not have a full UI implementation, but it does have several built in visualization functions for comparing models.
+
+Hyperopt's code is publicly available on GitHub:
+
+-   <https://github.com/hyperopt/hyperopt>
+
+It also has a basic documentation website:
+
+-   <http://hyperopt.github.io/hyperopt/>
 
 #### Optuna
 
@@ -48,9 +72,9 @@ The creators of Optuna attempted to fill those gaps, advertising the following f
 3.  **Parallel distributed optimization** -- Optuna supports distributed optimization, simultaneously running multiple trials. This can dramatically speed up the tuning process and allow the user to increase the scale of how many parameters they can try.
 4.  **Visualization dashboard** - Optuna provides a UI dashboard where users can watch the optimization process and easily compare results from optimization experiments.
 
-The tool uses several advanced algorithms for tuning that go beyond standard grid search. These include:
+Like Hyperopt, the tool uses several advanced algorithms (including Bayesian methods) for tuning that go beyond standard grid search:
 
--   [Tree-Structured Parzen Estimator](https://proceedings.neurips.cc/paper_files/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf) (TPE) , a form of Bayesian optimization:
+-   [Tree-Structured Parzen Estimator](https://proceedings.neurips.cc/paper_files/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf) (TPE)
 
 -   [Gaussian Processes](https://papers.nips.cc/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf) (GP)
 
@@ -58,23 +82,29 @@ The tool uses several advanced algorithms for tuning that go beyond standard gri
 
 -   [Asynchronous Successive Halving Algorithm](https://arxiv.org/pdf/1810.05934.pdf) (ASHA)
 
+These algorithms are similar to those used in Hyperopt, though Hyperopt is missing CMA and ASHA. The inclusion of ASHA in Optuna is particularly of note, as this is a key feature for allowing parallel optimization.
+
 Optuna is framework agnostic, meaning it can easily be integrated with any of Python's machine learning/deep learning frameworks: Scikit-Learn, PyTorch, Tensorflow, etc.
 
 The code for Optuna is publicly available on GitHub:
 
-<https://github.com/optuna/optuna>
+-   <https://github.com/optuna/optuna>
+
+There is a second GitHub page supporting their UI dashboard component, which was released separately:
+
+-   <https://github.com/optuna/optuna-dashboard>
 
 Optuna also has a custom website with tutorials, examples, and links to documentation:
 
-<https://optuna.org>
+-   <https://optuna.org>
 
-#### Hyperopt
+------------------------------------------------------------------------
 
-In this project, we compare these two tools. We start with a code review of both tools, and then conduct an experimental comparison where we train and tune a machine learning model using each.
-
-# Code Review: Optuna
+In this project, we compare these two tools. We start with a code review of both tools based on the code available in their public repositories. After this, we then conduct an experimental comparison where we train and tune a machine learning model using Scikit-Learn in combination with both Hyperopt and Optuna and compare their performance.
 
 # Code Review: Hyperopt
+
+# Code Review: Optuna
 
 # Experimental Comparison
 
