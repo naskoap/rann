@@ -22,7 +22,9 @@ Official resources for Optuna and Hyperopt are provided below:
 
 #### Hyperopt:
 
-- GitHub Repository: https://github.com/hyperopt/hyperopt
+- GitHub Repository (Hyperopt generally): https://github.com/hyperopt/hyperopt
+
+- GitHub Repository (sci-kit learn specific implementation): https://github.com/hyperopt/hyperopt-sklearn
 
 - Documentation: http://hyperopt.github.io/hyperopt/
 
@@ -37,6 +39,10 @@ Users have tried these tools and written tutorials and summaries of their experi
 - Experimental comparison of a variety of tools: https://medium.com/@gerbentempelman/comparing-hyperparameter-optimization-frameworks-in-python-a-conceptual-and-pragmatic-approach-24d9baa1cc69
 
 - Research paper on comparative study of optimization tools: https://arxiv.org/pdf/2201.06433.pdf
+
+- Deep dive on examples of Optuna: https://towardsdatascience.com/optuna-a-flexible-efficient-and-scalable-hyperparameter-optimization-framework-d26bc7a23fff
+
+- Deep dive on Hyperopt-sklearn: https://towardsdatascience.com/hyperopt-hyperparameter-tuning-based-on-bayesian-optimization-7fa32dffaf29
 
 
 ### Repository Structure
