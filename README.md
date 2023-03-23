@@ -40,6 +40,8 @@ Users have tried these tools and written tutorials and summaries of their experi
 
 - Research paper on comparative study of optimization tools: https://arxiv.org/pdf/2201.06433.pdf
 
+- Deep dive on examples of Optuna: https://towardsdatascience.com/optuna-a-flexible-efficient-and-scalable-hyperparameter-optimization-framework-d26bc7a23fff
+
 
 ### Repository Structure
 
