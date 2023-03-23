@@ -104,6 +104,58 @@ In this project, we compare these two tools. We start with a code review of both
 
 # Code Review: Hyperopt
 
+Repository Link: [GitHub](https://github.com/hyperopt/hyperopt)
+
+### Repository Overview
+
+In this section, we cover several basic characteristics of the GitHub repository that are not code specific. For each category, we rate the repository on a scale of 1-10.
+
+**Note:** All of the information in this section is as of March 2023, and may have changed since then.
+
+#### Popularity/Use
+
+Hyperopt has over 6.6K stars, 1K forks, and 9.2K active GitHub users. [90% of repositories](https://medium.appbase.io/analyzing-20k-github-repositories-af76de21c3fc) have \< 5K stars, putting Hyperopt in the top 10%. It clearly is having significant impact and influence in the field of hyperparameter tuning.
+
+**Score: 8/10**
+
+#### Community
+
+Hyperopt has a reasonably active community with 90 separate contributors. There are 16 open pull requests from 13 separate users. This indicates that users *other* than those who originally created the project are helping maintain and improve the code, which can be helpful in keeping long-term projects updated.
+
+**Score**: **7/10**
+
+#### Maintenance
+
+The last commit on the main branch is from Nov 29, 2021, nearly 1.5 years ago. The latest official release is from around the same time period (Nov 17, 2021).
+
+Contrary to best practice, the `dev` branch is *not* updated compared to the `main` branch. It is 75 commits behind, when standard practice would be for the `dev` branch to be *ahead*(for testing out new features).
+
+There are several pull requests that have been sitting in the repository for a long time, including one as old as August 2020.
+
+Similarly, there are 375 open issues with a few dozen being **more than a decade old**!!
+
+This indicates a somewhat [poor]{.underline} level of maintenance.
+
+Issues are getting buried. Pull requests are left opened instead of closed (if not going to be put into use/merged). Additionally, the longer that packages go without an update, the higher the likelihood for bugs to be introduced as dependencies and Python versions update and change. In the world of software, 1.5 years is a long time to not update.
+
+**Score: 4/10**
+
+**Dependencies**
+
+Hyperopt has **8** direct dependencies, which is a relatively small number, especially for the scale of the project. The low number of dependencies helps keep the project stable by reducing the chance that a dependency could have vulnerabilities or that an update to a could introduce unexpected functionality-breaking bugs.
+
+**Score: 8/10**
+
+#### Security
+
+A [Snyk analysis](https://snyk.io/advisor/python/hyperopt) found 0 direct vulnerabilities in the code and 3 indirect vulnerabilities, all associated with software dependencies.
+
+These indirect vulnerabilities were classified as **Low** severity.
+
+Overall, this indicates that Hyperopt is quite secure.
+
+**Score: 9/10**
+
 # Code Review: Optuna
 
 # Experimental Comparison
