@@ -42,6 +42,8 @@ Users have tried these tools and written tutorials and summaries of their experi
 
 - Deep dive on examples of Optuna: https://towardsdatascience.com/optuna-a-flexible-efficient-and-scalable-hyperparameter-optimization-framework-d26bc7a23fff
 
+- Deep dive on Hyperopt-sklearn: https://towardsdatascience.com/hyperopt-hyperparameter-tuning-based-on-bayesian-optimization-7fa32dffaf29
+
 
 ### Repository Structure
 
