@@ -148,7 +148,7 @@ Hyperopt has **8** direct dependencies, which is a relatively small number, espe
 
 #### Security
 
-A [Snyk analysis](https://snyk.io/advisor/python/hyperopt) found 0 direct vulnerabilities in the code and 3 indirect vulnerabilities, all associated with software dependencies.
+A [Snyk analysis](https://snyk.io/advisor/python/hyperopt#security) found 0 direct vulnerabilities in the code and 3 indirect vulnerabilities, all associated with software dependencies.
 
 These indirect vulnerabilities were classified as **Low** severity.
 
@@ -157,6 +157,60 @@ Overall, this indicates that Hyperopt is quite secure.
 **Score: 9/10**
 
 # Code Review: Optuna
+
+Repository Link: [GitHub](https://github.com/optuna/optuna)
+
+### Repository Overview
+
+In this section, we cover several basic characteristics of the GitHub repository that are not code specific. For each category, we rate the repository on a scale of 1-10.
+
+**Note:** All of the information in this section is as of March 2023, and may have changed since then.
+
+#### Popularity/Use
+
+Optuna has over 7.8K stars, 813 forks, and 6.6K active GitHub users. [90% of repositories](https://medium.appbase.io/analyzing-20k-github-repositories-af76de21c3fc) have \< 5K stars, putting Optuna in the top 10%. It clearly is having significant impact and influence in the field of hyperparameter tuning. This growth is particularly impressive compared with Hyperopt when considering that usage is relatively similar between the two tools but Hyperopt has been around for over a decade, while Optuna has only been around for a few years.
+
+**Score: 8/10**
+
+#### Community
+
+Optuna has a very active community with 199 separate contributors, more than double that of Hyperopt. There are 19 open pull requests from 14 separate users, and nearly 3000 pull requests already closed. This indicates that users *other* than those who originally created the project are regularly helping maintain and improve the code, which can be helpful in keeping long-term projects updated.
+
+The high number of contributors also means many different perspectives are being considered in the code, which often leads to a better product.
+
+**Score**: **9/10**
+
+#### Maintenance
+
+The last commit on the main branch was made *within the last day.* The latest official release was put out around two months prior to writing this (Jan 18, 2023).
+
+There is a separate branch for each major release, making it simple to find the corresponding code. There does not appear to be any `dev` branch used for testing, which is slightly strange, but most of the pull requests appear to be coming from *forks* of the repository (by other contributing users than the official Optuna team), which use different branch structures.
+
+The oldest pull request is less than 6 months old, with quite a few being very new (opened within the last day or two).
+
+There are 99 issues open, with the oldest from August 2020. Over 1200 issues are closed.
+
+Overall this indicates a [very high]{.underline} level of maintenance.
+
+Issues tend to be getting closed in a reasonable amount of time in most cases, though 99 open is still a semi-large number to keep track of and can lead to old issues getting buried. Pull requests seem to mostly be processed quickly and have lots of engagement in the comments. Commits are being created regularly, as are new releases. This helps keep the code up to date and reduces the number of bugs.
+
+**Score: 9/10**
+
+**Dependencies**
+
+Optuna has 2**8** direct dependencies, more than three times the number of Hyperopt. This is quite a few dependencies, which increases the risk of potential security vulnerabilities or function-breaking bugs.
+
+**Score: 5/10**
+
+#### Security
+
+A [Snyk analysis](https://snyk.io/advisor/python/optuna#security) found 0 direct vulnerabilities in the code and 3 indirect vulnerabilities, all associated with software dependencies.
+
+These indirect vulnerabilities were classified as **Low** severity.
+
+Overall, this indicates that even though it has many dependencies, Optuna is quite secure, just like Hyperopt.
+
+**Score: 9/10**
 
 # Experimental Comparison
 
