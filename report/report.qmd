@@ -158,9 +158,102 @@ Overall, this indicates that Hyperopt is quite secure.
 
 ### Non-Functional Requirements
 
-In this section, we will look at several non-functional requirements and consider how well the Hyperopt repository achieves them. Functional requirements will be considered later, in the *Experimental Comparison* section.
+In this section, we will look at several non-functional requirements and consider how well the Hyperopt repository achieves them. Functional requirements will be considered later, in the *Experimental Comparison* section, along with a look at the UI features of the tool.
 
 #### Understandability
+
+Hyperopt contains a basic README. It provides setup instructions, a simple example, and instructions for those interested in contributing to the software.
+
+However, this README is certainly not perfect. Consider the example code provided below. There is a comment describing this code chunk, but it is not necessarily obvious to a new user *what* a search space is. There is no definition provided along with this code sample (and no direct link to the documentation page explaining it), so just reading the sample for the first time is a bit confusing.
+
+```{python}
+#| eval: false
+# define a search space
+from hyperopt import hp
+space = hp.choice('a',
+    [
+        ('case 1', 1 + hp.lognormal('c1', 0, 1)),
+        ('case 2', hp.uniform('c2', -10, 10))
+    ])
+```
+
+The organization of the documentation is somewhat confusing as well. It appears to be hosted in three separate places: a GitHub wiki, an official separate documentation website, and several Jupyter notebooks written into the repository under a folder called `Tutorial`.
+
+This leads to a very confusing system. Several links on the README point to functional wiki pages:
+
+-   [Basic tutorial](https://github.com/hyperopt/hyperopt/wiki/FMin)
+
+-   [Installation notes](https://github.com/hyperopt/hyperopt/wiki/Installation-Notes)
+
+-   [Using mongodb](https://github.com/hyperopt/hyperopt/wiki/Parallelizing-Evaluations-During-Search-via-MongoDB)
+
+However, other links on the README point to pages that are now deprecated, e.g. one part of the README says "See [projects using hyperopt](https://github.com/hyperopt/hyperopt/wiki/) on the wiki" but this does not link to the current documentation for this information. This indicates that the README is not fully up to date. The README also completely fails to mentionthe existence of the Jupyter notebooks, and does not explain what the different folders in the repository store either (which can be helpful to those wanting to understand the code).
+
+The [official documentation website](http://hyperopt.github.io/hyperopt/) is better than the README for providing key information. It has several pages that expand significantly on terms like "search space" and "minimizing function" that are discussed in the README with full-length walkthrough pages for each.
+
+However, it is still somewhat limited. There is only one basic example of how to use the code, which is very minimal for a project so math-heavy, requiring the user to define search spaces and limiting functions.
+
+There is also some slightly contradictory information. For example, on a page titled "Getting started with Hyperopt", one sentence says:
+
+> Parallel search is possible when replacing the Trials database with a MongoTrials one; there is another wiki page on the subject of using mongodb for parallel search.
+
+This implies that `mongodb` is an optional addition that you can use if you want to do parallel search. However, if you go to the Installation page on the menu, the page is all about installing `mongodb`. Since this is the main **installation** page of the wiki, most users would probably assume you need to take this step. The page starts with:
+
+> Hyperopt requires mongodb (sometimes "mongo" for short) to perform parallel search.
+
+The way this is organized is needlessly confusing, especially when there is a whole separate tab on the documentation page about scaling out with `mongodb`. Why aren't the `mongodb` instructions included there, and the Installation instructions simplified down to what is necessary with a note about optional additions?
+
+On the code side of things, understandability is not much better. The organization for the repository is not particularly good. Everything is stored in a folder called `hyperopt` , which has dozens of files stacked together in the same folder, rather than being separated out by purpose. For example, we see some of the following files:
+
+> `graph_viz.py`
+>
+> `plotting.py`
+>
+> `pyll_utils.py`
+>
+> `utils.py`
+
+These are all in the same folder, but seem to have different purposes. Some are basic utilities that help with modeling, while others have to do solely with visualization. Separating these into separate folders by purpose would make it more clear which files go together.
+
+Function documentation is okay, but definitely not perfect. There are several classes in the code and these seem to be documented in detail using an autodocumentation tool (see the docstring in the example method below):
+
+```{python}
+#| eval: false
+
+def shrinking(self, label):
+        """Return fraction of original search width
+        Parameters
+        ----------
+        label: string
+            the name of a hyperparameter
+        """
+        T = len(self.node_vals[label])
+        return old_div(1.0, (1.0 + T * self.shrink_coef))
+```
+
+This autodocumentation does not actually appear to be running though, as there is no indication on the README about a site where each method is documented, even though the code is already written in the format to support that.
+
+Additionally, some functions are not documented at all. For example, the following, from `utils.py`:
+
+```{python}
+#| eval: false
+
+def get_most_recent_inds(obj):
+    data = numpy.rec.array(
+        [(x["_id"], int(x["version"])) for x in obj], names=["_id", "version"]
+    )
+    s = data.argsort(order=["_id", "version"])
+    data = data[s]
+    recent = (data["_id"][1:] != data["_id"][:-1]).nonzero()[0]
+    recent = numpy.append(recent, [len(data) - 1])
+    return s[recent]
+```
+
+Every function should have at least some amount of documentation, which is certainly not the case here.
+
+Overall, minimal documentation exists but leaves a lot to be desired.
+
+**Score:** 5/10
 
 #### Testability/Debuggability
 
@@ -224,7 +317,7 @@ Overall, this indicates that even though it has many dependencies, Optuna is qui
 
 ### Non-Functional Requirements
 
-In this section, we will look at several non-functional requirements and consider how well the Optuna repository achieves them. Functional requirements will be considered later, in the *Experimental Comparison* section.
+In this section, we will look at several non-functional requirements and consider how well the Optuna repository achieves them. Functional requirements will be considered later, in the *Experimental Comparison* section, along with a look at the UI features of the tool.
 
 #### Understandability
 
