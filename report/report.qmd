@@ -106,7 +106,7 @@ In this project, we compare these two tools. We start with a code review of both
 
 Repository Link: [GitHub](https://github.com/hyperopt/hyperopt)
 
-### Repository Overview
+## Repository Overview
 
 In this section, we cover several basic characteristics of the GitHub repository that are not code specific. For each category, we rate the repository on a scale of 1-10.
 
@@ -156,7 +156,7 @@ Overall, this indicates that Hyperopt is quite secure.
 
 **Score: 9/10**
 
-### Non-Functional Requirements
+## Non-Functional Requirements
 
 In this section, we will look at several non-functional requirements and consider how well the Hyperopt repository achieves them. Functional requirements will be considered later, in the *Experimental Comparison* section, along with a look at the UI features of the tool.
 
@@ -263,7 +263,7 @@ Overall, minimal documentation exists but leaves a lot to be desired.
 
 Repository Link: [GitHub](https://github.com/optuna/optuna)
 
-### Repository Overview
+## Repository Overview
 
 In this section, we cover several basic characteristics of the GitHub repository that are not code specific. For each category, we rate the repository on a scale of 1-10.
 
@@ -315,11 +315,82 @@ Overall, this indicates that even though it has many dependencies, Optuna is qui
 
 **Score: 9/10**
 
-### Non-Functional Requirements
+## Non-Functional Requirements
 
 In this section, we will look at several non-functional requirements and consider how well the Optuna repository achieves them. Functional requirements will be considered later, in the *Experimental Comparison* section, along with a look at the UI features of the tool.
 
 #### Understandability
+
+Like Hyperopt, Optuna's repository has a basic README with a quick code sample, information on installation, and additional features that can be integrated.
+
+The code sample provided for Optuna is well documented. It defines terms that are used in the framework ("study" and "trial"), and the example code even has some step by step comments.
+
+```{python}
+#| eval: false
+study = optuna.create_study()  # Create a new study.
+study.optimize(objective, n_trials=100)  # Invoke optimization of the
+# objective function.
+```
+
+Examples like this were one area Hyperopt fell quite short. The official documentation had only one example, and a link to additional examples in the README directed to a deprecated page. Optuna, on the other hand, has an **entire repository** dedicated to examples, in addition to the example on the README. This repository is linked in the README.
+
+[https://github.com/optuna/optuna-examples](https://github.com/optuna/optuna-exampleshttps://github.com/optuna/optuna-examples)
+
+It contains full examples written out in pretty much *every* Python machine learning library out there, including `keras`, `pytorch`, `tensorflow`, and `sklearn`. Each example is well documented and contains a unique set of requirements telling the user which software versions they need installed to run the example. This is about as well documented of an example guide as you can create!
+
+Optuna's [official documentation site](https://optuna.readthedocs.io/en/stable/index.html) is also excellent. It includes a link to a YouTube overview of the tool and a walkthrough of key features of Optuna compared with other hyperparamter optimizers. It also has a full API reference guide with documentation of different classes and functions. Finally, it provides an extensive FAQ page providing detailed answers (including code snippets) to common questions.
+
+The documentation is very easy to find and well organized. All sites linked in the README are also up to date.
+
+The organization of the repository is also quite clear. Each subfolder (that is not obvious in purpose solely by its name, such as "tests") contains its *own* readme, describing its purpose. For example, the benchmarks folder opens to this message:
+
+> # Benchmarks for Optuna
+>
+> Interested in measuring Optuna's performance? You are very perceptive. Under this directory, you will find scripts that we have prepared to measure Optuna's performance.
+
+Folders are also relatively clearly named and there is a high degree of separation. Folders are broken down into subfolders where similar pieces of code are stored together. For example, in the benchmarks folder, there are separate folders for each benchmark technique used for measuring performance.
+
+There are also other nice features. For example, the authors have a full guide for contributing to the project and they also provide a dockerfile that can be used in projects wanting to run Optuna using docker.
+
+Function documentation is also quite good. Most functions have a full docstring, particularly if they are user facing, e.g:
+
+```{python}
+#| eval: false
+def json_to_distribution(json_str: str) -> BaseDistribution:
+  
+    """Deserialize a distribution in JSON format.
+    Args:
+        json_str: A JSON-serialized distribution.
+    Returns:
+        A deserialized distribution.
+    """
+```
+
+However, not all functions have one. Some back end functions that aren't provided to the user are missing docstrings. This could make it more difficult for open source contributors to understand these functions. Additionally, some functions have smaller line-by-line type comments, but these are relatively minimal. For example, the following code from the same function above just has one small comment:
+
+```{python}
+#| eval: false
+json_dict = json.loads(json_str)
+
+    if "name" in json_dict:
+        if json_dict["name"] == CategoricalDistribution.__name__:
+            json_dict["attributes"]["choices"] = 
+            tuple(json_dict["attributes"]["choices"])
+
+        for cls in DISTRIBUTION_CLASSES:
+            if json_dict["name"] == cls.__name__:
+                return cls(**json_dict["attributes"])
+
+        raise ValueError("Unknown distribution class: {}".format(
+        json_dict["name"]))
+
+    else:
+        # Deserialize a distribution from an abbreviated format.
+        if json_dict["type"] == "categorical":
+            return CategoricalDistribution(json_dict["choices"])
+```
+
+**Score: 9/10**
 
 #### Testability/Debuggability
 
