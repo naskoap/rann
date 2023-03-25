@@ -156,6 +156,16 @@ Overall, this indicates that Hyperopt is quite secure.
 
 **Score: 9/10**
 
+### Non-Functional Requirements
+
+In this section, we will look at several non-functional requirements and consider how well the Hyperopt repository achieves them. Functional requirements will be considered later, in the *Experimental Comparison* section.
+
+#### Understandability
+
+#### Testability/Debuggability
+
+#### Extensibility/Scalability
+
 # Code Review: Optuna
 
 Repository Link: [GitHub](https://github.com/optuna/optuna)
@@ -211,6 +221,16 @@ These indirect vulnerabilities were classified as **Low** severity.
 Overall, this indicates that even though it has many dependencies, Optuna is quite secure, just like Hyperopt.
 
 **Score: 9/10**
+
+### Non-Functional Requirements
+
+In this section, we will look at several non-functional requirements and consider how well the Optuna repository achieves them. Functional requirements will be considered later, in the *Experimental Comparison* section.
+
+#### Understandability
+
+#### Testability/Debuggability
+
+#### Extensibility/Scalability
 
 # Experimental Comparison
 
