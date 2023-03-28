@@ -116,13 +116,13 @@ In this section, we cover several basic characteristics of the GitHub repository
 
 Hyperopt has over 6.6K stars, 1K forks, and 9.2K active GitHub users. [90% of repositories](https://medium.appbase.io/analyzing-20k-github-repositories-af76de21c3fc) have \< 5K stars, putting Hyperopt in the top 10%. It clearly is having significant impact and influence in the field of hyperparameter tuning.
 
-**Score: 8/10**
+#### **`Score: 8/10`**
 
 #### Community
 
 Hyperopt has a reasonably active community with 90 separate contributors. There are 16 open pull requests from 13 separate users. This indicates that users *other* than those who originally created the project are helping maintain and improve the code, which can be helpful in keeping long-term projects updated.
 
-**Score**: **7/10**
+#### **`Score`**`: 7/10`
 
 #### Maintenance
 
@@ -138,13 +138,13 @@ This indicates a somewhat [poor]{.underline} level of maintenance.
 
 Issues are getting buried. Pull requests are left opened instead of closed (if not going to be put into use/merged). Additionally, the longer that packages go without an update, the higher the likelihood for bugs to be introduced as dependencies and Python versions update and change. In the world of software, 1.5 years is a long time to not update.
 
-**Score: 4/10**
+#### **`Score: 4/10`**
 
 **Dependencies**
 
 Hyperopt has **8** direct dependencies, which is a relatively small number, especially for the scale of the project. The low number of dependencies helps keep the project stable by reducing the chance that a dependency could have vulnerabilities or that an update to a could introduce unexpected functionality-breaking bugs.
 
-**Score: 8/10**
+#### **`Score: 8/10`**
 
 #### Security
 
@@ -154,7 +154,7 @@ These indirect vulnerabilities were classified as **Low** severity.
 
 Overall, this indicates that Hyperopt is quite secure.
 
-**Score: 9/10**
+#### **`Score: 9/10`**
 
 ## Non-Functional Requirements
 
@@ -253,9 +253,108 @@ Every function should have at least some amount of documentation, which is certa
 
 Overall, minimal documentation exists but leaves a lot to be desired.
 
-**Score:** 5/10
+#### **`Score:`**`5/10`
 
 #### Testability/Debuggability
+
+In its GitHub repository, `hyperopt` has a `/tests` folder which contains both **integration** and **unit** tests. These tests all appear to be written using Python's built in `unittest` library, which is the most popular testing framework in Python.
+
+Some (but not all) of the tests use `setUp`/`tearDown` methods to configure the environment for testing, which is considered best practice when applicable.
+
+There is a clear lack of documentation across the tests. Most have *no* comments whatsoever describing what they are testing.
+
+The integration tests cover the two main extensions that `hyperopt` describes on their documentation site: `mongodb` and `spark`. These tests appear to be quite extensive and cover a variety of different conditions. For example, consider the following list of tests written for the `spark` integration:
+
+-   `test_timeout_without_job_cancellation`
+
+-   `test_timeout_without_job_cancellation_fmin_timeout`
+
+-   `test_timeout_with_job_cancellation`
+
+-   `test_invalid_timeout`
+
+These are four separate tests all looking for the same general behavior (timeout), but there is a version custom-generated for each possible kind of timeout situation. This indicates that the test authors wanted to ensure that no cases were missed.
+
+For the unit tests, there are 17 test files which each test a different component of the tool. This clear separation helps make clear which tests are available for which features.
+
+Most of these tests look pretty standard and effective. However, there are some strange features in a few of the tests.
+
+First, some of the tests don't actually include any assert statements to check their behavior. This makes some sense for tests such as those that generate plots (it is hard to test an image to ensure that it is showing the correct thing), but it does not make sense for all tests.
+
+For example `test_webpage.py` seems to be testing a function that returns certain values. However, the code just runs this function and prints the result, then does nothing else. The expected values for these functions appear to be written in a comment under print statements, so why don't the authors just add an assert statement to confirm that the values being returned match what is expected? This particular test is also quite strange as it just appears to be a standard function and not written with `unittest`, like the rest of the functions.
+
+```{python}
+#| eval: false
+    def test_landing_screen():
+
+    # define an objective function
+    def objective(args):
+        case, val = args
+        if case == "case 1":
+            return val
+        else:
+            return val ** 2
+
+    # define a search space
+    from hyperopt import hp
+
+    space = hp.choice(
+        "a",
+        [
+            ("case 1", 1 + hp.lognormal("c1", 0, 1)),
+            ("case 2", hp.uniform("c2", -10, 10)),
+        ],
+    )
+
+    # minimize the objective over the space
+    import hyperopt
+
+    best = hyperopt.fmin(objective, space,
+    algo=hyperopt.tpe.suggest, max_evals=100)
+
+    print(best)
+    # -> {'a': 1, 'c2': 0.01420615366247227}
+
+    print(hyperopt.space_eval(space, best))
+    # -> ('case 2', 0.01420615366247227}
+```
+
+`test_plotting.py` also has some questionable behavior. This test has a *try* statement in the imports, and [skips]{.underline} the test if there is an issue with `matplotlib`. Having a built in feature to skip a test is not good practice. If the authors know why this `matplotlib` error happens, which thy appear to based on a comment left in the code, it should be predictable, and thus it should be possible to write the test in such a way as to get around it.
+
+```{python}
+#| eval: false
+try:
+    import matplotlib
+
+    matplotlib.use("svg")  # -- prevents trying to connect to X server
+except ImportError:
+    import nose
+
+    raise nose.SkipTest()
+```
+
+Zooming out and looking at the code itself, rather than just the tests, overall the code appears to be written in a way that promotes testability.
+
+Many of the functions in `hyperopt` use `try`/`except` pairs to raise errors for a variety of behaviors. Some of the functions even include `assert` statements to check that something is true *within* the original function (and not just in the corresponding test):
+
+```{python}
+#| eval: false
+def idxs_take(idxs, vals, which):
+    """
+    Return `vals[which]` where `which` is a subset of `idxs`
+    """
+    # TODO: consider insisting on sorted idxs
+    # TODO: use np.searchsorted instead of dct
+    assert len(idxs) == len(vals)
+    table = dict(list(zip(idxs, vals)))
+    return np.asarray([table[w] for w in which])
+```
+
+These are sometimes self explanatory but sometimes not, and the code appears to be mostly lacking any sort of comments explaining when these exceptions are expected to appear, which makes testing more difficult for unfamiliar users.
+
+On a more positive note, the code is highly modular. Different components are separated and most functions are shorter than around 20 lines. Very short, separated functions makes it significantly easier to debug and trace where an error came from--particularly combined with the frequent exception statements.
+
+#### **`Score: 7/10`**
 
 #### Extensibility/Scalability
 
@@ -273,7 +372,7 @@ In this section, we cover several basic characteristics of the GitHub repository
 
 Optuna has over 7.8K stars, 813 forks, and 6.6K active GitHub users. [90% of repositories](https://medium.appbase.io/analyzing-20k-github-repositories-af76de21c3fc) have \< 5K stars, putting Optuna in the top 10%. It clearly is having significant impact and influence in the field of hyperparameter tuning. This growth is particularly impressive compared with Hyperopt when considering that usage is relatively similar between the two tools but Hyperopt has been around for over a decade, while Optuna has only been around for a few years.
 
-**Score: 8/10**
+#### **`Score: 8/10`**
 
 #### Community
 
@@ -281,7 +380,7 @@ Optuna has a very active community with 199 separate contributors, more than dou
 
 The high number of contributors also means many different perspectives are being considered in the code, which often leads to a better product.
 
-**Score**: **9/10**
+#### **`Score`**`: 9/10`
 
 #### Maintenance
 
@@ -297,13 +396,13 @@ Overall this indicates a [very high]{.underline} level of maintenance.
 
 Issues tend to be getting closed in a reasonable amount of time in most cases, though 99 open is still a semi-large number to keep track of and can lead to old issues getting buried. Pull requests seem to mostly be processed quickly and have lots of engagement in the comments. Commits are being created regularly, as are new releases. This helps keep the code up to date and reduces the number of bugs.
 
-**Score: 9/10**
+#### **`Score: 9/10`**
 
 **Dependencies**
 
 Optuna has 2**8** direct dependencies, more than three times the number of Hyperopt. This is quite a few dependencies, which increases the risk of potential security vulnerabilities or function-breaking bugs.
 
-**Score: 5/10**
+#### **`Score: 5/10`**
 
 #### Security
 
@@ -313,7 +412,7 @@ These indirect vulnerabilities were classified as **Low** severity.
 
 Overall, this indicates that even though it has many dependencies, Optuna is quite secure, just like Hyperopt.
 
-**Score: 9/10**
+#### **`Score: 9/10`**
 
 ## Non-Functional Requirements
 
@@ -390,7 +489,7 @@ json_dict = json.loads(json_str)
             return CategoricalDistribution(json_dict["choices"])
 ```
 
-**Score: 9/10**
+#### **`Score: 9/10`**
 
 #### Testability/Debuggability
 
