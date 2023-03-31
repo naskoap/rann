@@ -563,6 +563,41 @@ Overall the test suite appears to be well written and extensive, though we only 
 
 #### Extensibility/Scalability
 
+Optuna solves some of the issues with scalability faced by Hyperopt. For one, parallel computing is built into Optuna. Anyone who wants to use it can apply parallel processing out of the box, without the need for integration with other tools. This means it is already designed to run well at scale and handle large processing requests.
+
+Optuna also has a built in UI dashboard. The repository storing its code is linked below:
+
+<https://github.com/optuna/optuna-dashboard>
+
+This dashboard is super simple to use. The user need only define a location to store the results of the study/parameter tuning process, run `pip install optuna-dashboard` and then run a single line of code to get the dashboard running. It appears like you can set which IP address the dashboard gets hosted on, allowing for customization.
+
+The option to specify a storage location lets users set up storage integration with production-ready platforms, such as SQL databases.
+
+One additional convenient feature for production deployments is the inclusion of docker images. The creators of Optuna have made official [docker images](https://github.com/optuna/optuna-dashboard/pkgs/container/optuna-dashboard) for the tool and its UI dashboard, which users can use to install and run the tool in a standardized format. For example, users can install the dashboard image as follows:
+
+```{bash}
+#| eval: false
+$ docker pull ghcr.io/optuna/optuna-dashboard:latest
+```
+
+The code is also written with a high level of extensibility. Just like Hyperopt, all of the code is publicly available on GitHub--both for the original tool itself and for additional features like the dashboard--making it easy to contribute.
+
+In addition, Optuna provides lots of extra resources to make contribution easier. For example, there is a full Developer's Guide provided on GitHub for **both** the original Optuna repository **and** the dashboard repository.
+
+For example, this is how the guide on the original repository starts:
+
+![](optuna-contribute.png)
+
+The authors already note which areas particularly need more work (e.g. extending tutorials and examples, improving documentation) and then later in the document provide an extensive overview of the steps for contributing to the code. This is excellent and more detailed than the contribution pages on most other repositories. For those wanting to extend the package, it provides an excellent overview to get them started and helps maintain a consistent process and workflow.
+
+Similar to Hyperopt, Optuna also uses a lot of classes throughout its code, which again can simplify the process of adding new features (one need only add a method to the class that the new feature corresponds to).
+
+Optuna's excellent documentation helps make this process easy as well. Almost all functions and classes contain extensive details about their inputs, outputs, methods, and expected behavior. This makes it easy for developers to see which features are present and which ones may be missing.
+
+Some functions can be a little long, however, and some utility functions are not fully documented, so there is still room for a little bit of improvement on the extensibiility side.
+
+#### **`Score: 9/10`**
+
 # Experimental Comparison
 
 # Conclusion
