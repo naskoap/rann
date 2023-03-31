@@ -598,6 +598,10 @@ Some functions can be a little long, however, and some utility functions are not
 
 #### **`Score: 9/10`**
 
+# Code Review: Summary
+
+![](comparison-table.png)
+
 # Experimental Comparison
 
 # Conclusion
