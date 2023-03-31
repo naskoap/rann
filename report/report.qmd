@@ -493,6 +493,56 @@ json_dict = json.loads(json_str)
 
 #### Testability/Debuggability
 
+Similar to hyperopt, optuna contains both integration tests and unit tests. The tests in Optuna are written using `pytest` instead of `unittest`. Both frameworks are excellent and effective, though `pytest` is known to have an advantage in understandability. This is because `unittest` requires a class-based formatting for tests, which requires a more complex structure, while `pytest` just uses functions to run tests.
+
+The tests are separated out into separate folders in the repository, with each category of unit test getting its own folder (one for visualization, one for trials, one for search spaces, etc.).
+
+There are also a few additional tests that cover things that hyperopt did not cover, such as a set of tests to check whether importing all the requirements for optuna works properly and another that checks whether some built in logging functionality is working properly.
+
+The `integration_tests/` folder is very extensive and contains a test for essentially every possible Python machine learning library that users could use Optuna with: `keras`, `mlflow`, `pytorch`, `sklearn`, `tensorflow`, `xgboost`, etc. This set of tests appears to help make sure the examples page that Optuna provides is up to date. There is an integration test confirming that each integration with a machine learning library (as provided in the examples) works properly.
+
+The unit tests also appear extensive. One file (`study_tests/test_study.py`), which is just one of dozens of test files, testing *one small aspect of the code,* contains over 1500 lines of test code. This code appears to test every possible state of a trial.
+
+This wide level of code coverage is actually verifiable by the user, since Optuna uses a `codecov` plugin on the repository. `codecov` is a tool that checks test coverage *every time* a new commit is added to the repository. Optuna's `codecov` page is linked below:
+
+<https://app.codecov.io/gh/optuna/optuna>
+
+This tool measures in terms of line coverage. Optuna has **90.79%** coverage, and that coverage appears to be trending upward, having increased by 1% in the last 3 months. We can actually see how much *each* individual file and folder in the code is covered. The file with the least coverage appears to be `cli.py` (testing the command line interface), which makes sense. It is entirely possible that some code in the command line interface is simply not testable via an automated test checking system, as this requires someone executing commands via the command line (rather than solely running python). On the other end, some files and folders have 100% coverage as well.
+
+Similar to Hyperopt, the code for Optuna is written in a way that promotes testability and debuggability. Functions tend to be very short and modular. Many contain assertions and error raises.
+
+In addition, one excellent feature provided by the authors of Optuna is that some of the more complex functions in the tool actually have *examples* written in their doc strings, which give users a piece of code that should work for that function, helping make the expected use of each function much easier to understand.
+
+```{python}
+#| eval: false
+def stop(self) -> None:
+        """Exit from the current optimization loop after the running 
+        trials finish. This method lets the running :meth:
+        `~optuna.study.Study.optimize` method return immediately after
+        all trials which the :meth: `~optuna.study.Study.optimize`
+        method spawned finishes. This method does not affect any
+        behaviors of parallel or successive study processes. This
+        method only works when it is called inside an objective
+        function or callback.
+        
+        Example:
+            .. testcode::
+                import optuna
+                def objective(trial):
+                    if trial.number == 4:
+                        trial.study.stop()
+                    x = trial.suggest_float("x", 0, 10)
+                    return x**2
+                study = optuna.create_study()
+                study.optimize(objective, n_trials=10)
+                assert len(study.trials) == 5
+        """
+```
+
+Overall the test suite appears to be well written and extensive, though we only see metrics on line coverage (and not branch coverage, which typically requires more tests). It is possible that some improvements could still be made.
+
+#### **`Score: 9/10`**
+
 #### Extensibility/Scalability
 
 # Experimental Comparison
