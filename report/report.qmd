@@ -358,6 +358,24 @@ On a more positive note, the code is highly modular. Different components are se
 
 #### Extensibility/Scalability
 
+Etensibility and scalability are associated with how easy it is to expand a tool--either to more users or to a more production type environment (rather than a testing/development one), or by adding in new features.
+
+Hyperopt's major limitation in terms of scalability is the fact that parallel processing is not built in. This means the tool can not handle large scale problems out of the box. If the user wanted to test 100 different combinations of parameters, Hyperopt would have to run them one by one, which is a *very* slow process.
+
+In order to be used at scale, a hyperparameter tuning tool needs this feature. Although not built in, it *is* possible to integrate with Spark to do this. This can be limiting for some production uses, though, as it would require a Spark cluster to be available and installed in the environment, which could potentially be time consuming and expensive to set up.
+
+For use on a production scale, Hyperopt's built-in visualization features are lacking as well. In the tool itself, there are just three functions that the user can call to create a visualization comparing their trials, rather than a full dashboard that integrates with the tool. This means that a user wanting to share results would have to generate these graph images and share them with members of the team, versus having a dashboard that anyone could open and view.
+
+Once again, there is an integration that can help with this. Hyperopt results can be displayed with MLFlow, a platform that provides a dashboard/UI to support end-to-end machine learning workflows. MLFlow tools can be put into production through deployments to MLFlow's server or to another external Cloud tool. Again, though, this UI is not built in and requires the user to be familiar with the MLFlow system as well, in order to set up the integration.
+
+In terms of extensibility, the first major feature promoting this is of course that the code is hosted on GitHub. This makes it much easier to extend, as anyone interested in creating their own version of the tool could fork off the main repository and add on new features.
+
+The tool also uses classes throughout in order to manage its different algorithms. This makes the code easier to extend--users need only add methods to the corresponding class.
+
+However, the lack of documentation and clear organization makes extending the tool more difficult. It is sometimes hard to tell what each function is doing and what features are really available, which is necessary in order to understand what could potentially be added.
+
+#### **`Score: 5/10`**
+
 # Code Review: Optuna
 
 Repository Link: [GitHub](https://github.com/optuna/optuna)
