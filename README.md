@@ -6,6 +6,12 @@
 - Nelson Evbarunegbe
 - Raymond Li
 
+### Project Google Folder 
+
+This folder contains slides shared at midpoint and final presentations, as well as any other media such as recordings.
+
+https://drive.google.com/drive/folders/1knJQ2KCqIkrWExxXIYlPUy4Rd-sNyZU0?usp=share_link
+
 ### Project Topic:
 
 Tool comparison – *Optuna* vs. *Hyperopt*
