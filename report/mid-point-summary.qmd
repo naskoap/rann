@@ -1,0 +1,30 @@
+---
+title: "Tool Comparison: Optuna vs Hyperopt"
+author: "Audrey Bertin, Nasko Apostolov, Nelson Evbarunegbe, & Raymond Li"
+format: pdf
+editor: visual
+---
+
+Instructions:
+
+Each writeup should be about 3 to 4 pages single spaced. This should include the following:
+
+• title and authors
+
+• text descriptions
+
+• figures
+
+• references
+
+Each research or experimental evaluation writeup should have the following sections:
+
+• Introduction: Problem, research question(s), approach
+
+• Approach
+
+• Methodology such as datasets, algorithms/tools, evaluation criteria
+
+• Related work
+
+For an experimental evaluation writeup, the evaluation criteria often includes a manual review of the tool(s).
