@@ -5,26 +5,37 @@ format: pdf
 editor: visual
 ---
 
-Instructions:
+## Introduction
 
-Each writeup should be about 3 to 4 pages single spaced. This should include the following:
+For our project, we will be conducting a comparison of two tools designed to help with the process of **hyperparameter tuning** in a machine learning pipeline.
 
-• title and authors
+Hyperparameters are user-selected parameters applied to learning algorithms that affect how they are implemented--for example, constraints, weights, learning rates, number of algorithm layers/complexity, etc. Depending on which set of hyperparameters is selected, the results and performance of a particular machine learning algorithm can vary dramatically. The process of hyperparameter tuning is that of finding a good set of parameters for a specific model and dataset combination.
 
-• text descriptions
+The possible search space is infinite, making this task challenging. Grid search, in which users pre-define a list of possible parameter combinations and test them one by one, has historically been a common way to do this. However, it's very subjective (completely up to the user to select which parameters they want to try), and can be very time consuming for testing many combinations.
 
-• figures
+Hyperparameter tools have been developed to assist with this, using advanced algorithms and parallel computing to allow users to test out parameters with a more mathematical and faster approach.
 
-• references
+In this project, we are interested in comparing how two separate hyperparameter tuning tools work and perform--both in comparison to each other and to the standard grid search.
 
-Each research or experimental evaluation writeup should have the following sections:
+These tools are:
 
-• Introduction: Problem, research question(s), approach
+-   **Hyperopt:** a popular Python library for hyperparameter optimization that has been around--and been considered industry standard--for more than a decade.
 
-• Approach
+-   **Optuna**: a much newer tool that has some advanced features and is gaining popularity.
 
-• Methodology such as datasets, algorithms/tools, evaluation criteria
+Both tools have a UI-based component (either visualizations or a full dashboard) and both have their code publicly available on GitHub:
 
-• Related work
+-   <https://github.com/hyperopt/hyperopt>
 
-For an experimental evaluation writeup, the evaluation criteria often includes a manual review of the tool(s).
+-   <https://github.com/optuna/optuna>
+
+We will evaluate these tools in two separate ways:
+
+1.  A **code review**, where we look at the repositories and note things that they are each doing well or not so well.
+2.  An **experimental evaluation**, where we test an actual hyperparameter tuning process using sample data to compare ease of use, UI features, and which tool creates the best final model.
+
+## Code Review
+
+## Experimental Evaluation
+
+## Related Work/References
