@@ -1,7 +1,12 @@
 ---
 title: "Tool Comparison: Optuna vs Hyperopt"
 author: "Audrey Bertin, Nasko Apostolov, Nelson Evbarunegbe, & Raymond Li"
-format: pdf
+format: 
+  pdf:
+    margin-top: "0.6in"
+    margin-bottom: "0.6in"
+    include-in-header: 
+      text: '\pagenumbering{gobble}'
 editor: visual
 ---
 
@@ -25,18 +30,11 @@ These tools are:
 
 Both tools have a UI-based component (either visualizations or a full dashboard) and both have their code publicly available on GitHub:
 
--   <https://github.com/hyperopt/hyperopt>
-
--   <https://github.com/optuna/optuna>
+-   <https://github.com/hyperopt/hyperopt> \|\| <https://github.com/optuna/optuna>
 
 They also both have publicly available documentation sites:
 
--   <http://hyperopt.github.io/hyperopt/>
-
-```{=html}
-<!-- -->
-```
--   <https://optuna.org>
+-   <http://hyperopt.github.io/hyperopt/> \|\| <https://optuna.org>
 
 We will evaluate these tools in two separate ways:
 
@@ -67,11 +65,58 @@ For non-functional requirements, we will look at the following subset:
 
 -   **Extensibility/Scalability** - is it easy to add on new features or contribute to the project (since it's open source)? Are the existing features written/provided in such a way that it is easy to implement the code at scale, such as in some sort of production environment at a company, or are external libraries or new features needed?
 
-For each of these categories we will rate the repository's performance on a scale from 1-10. This score is subjective and will be backed up by arguments for both what the repository is doing well, and where it could be improved.
-
-At the end, we will share a table summarizing the ratings in each category to compare each tool's strengths and weaknesses (code-wise). We will also sum up the scores to determine an overall best tool based on code quality.
+For each of these categories we will rate the repository's performance on a scale from 1-10. This score is subjective and will be backed up by arguments for both what the repository is doing well, and where it could be improved. At the end, we will share a table summarizing the ratings in each category to compare each tool's strengths and weaknesses (code-wise). We will also sum up the scores to determine an overall best tool based on code quality.
 
 ## Experimental Evaluation
+
+For the experimental version of the tool, we will be comparing three separate options for Hyperparameter tuning: 1) Standard grid search, 2) Using Hyperopt, 3) Using Optuna.
+
+For each tuning technique, we will run a full machine learning tuning process *two* separate times, once for a [classification]{.underline} problem and once for a [regression]{.underline} problem. This means a total of 6 different conditions.
+
+For our [classification]{.underline} condition, we will be using a dataset to predict whether a patient will be readmitted to the hospital based on data from their prior visit (number of days at hospital, medications given, etc.). A sample of some of the columns in this dataset is shown below:
+
+```{r}
+#| include: false
+library(tidyverse)
+library(knitr)
+```
+
+```{r}
+#| echo: false
+readmissions <- readr::read_csv("../data/classification/hospital_readmissions.csv", show_col_types = FALSE)
+knitr::kable(readmissions %>% select(age, time_in_hospital, n_lab_procedures,diag_1, glucose_test, readmitted) %>% head(3))
+```
+
+We will predict the variable `readmitted` using all of the other variables. We will use the `RandomForestClassifier` from `scikit-learn` as our machine learning model.
+
+In order to compare the performance of each tool on the classification problem, we will use the following metrics:
+
+# NEED METRICS
+
+We will also do a short UI review comparing the UI options in Hyperopt and Optuna for a classification problem.
+
+For our [regression]{.underline} condition, we will be predicting the CO2 emissions of a vehicle based on a variety of features, such as engine size, transmission type, and fuel type. A sample of the dataset (not all columns) is included below:
+
+```{r}
+#| echo: false
+emissions <- readr::read_csv("../data/regression/CO2_Emissions_Canada.csv", show_col_types = FALSE)
+new_cols <- c("make", "model", "class", "engine_size", "cylinders", "transmission", "fuel_type", "fuel_consump_city", "fuel_consump_hwy", "fuel_consump_cmb", "fuel_consump_cmb_mph", "emissions") 
+
+
+
+colnames(emissions) <- new_cols
+emissions <- emissions %>% select(-fuel_consump_cmb_mph) 
+
+
+knitr::kable(emissions %>% select(class, engine_size, cylinders, fuel_type, fuel_consump_city, emissions) %>% head(3))
+
+```
+
+We will predict the variable `emissions` using all of the other variables. We will use the `RandomForestRegressor` from `scikit-learn` as our machine learning model.
+
+In order to compare the performance of each tool on the classification problem, we will use the following metrics:
+
+# NEED METRICS
 
 ## Related Work/References
 
