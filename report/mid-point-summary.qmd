@@ -74,3 +74,18 @@ At the end, we will share a table summarizing the ratings in each category to co
 ## Experimental Evaluation
 
 ## Related Work/References
+
+We will consider several outside resources as we complete our study:
+
+1.  A [research paper](https://arxiv.org/pdf/2201.06433.pdf) comparing a variety hyperparameter optimization tools as well as describing some mathematical theory behind how they work. This paper discusses both Hyperopt and Optuna.
+2.  An [official research paper](https://dl.acm.org/doi/pdf/10.1145/3292500.3330701) written on Optuna.
+3.  An [official research paper](https://iopscience.iop.org/article/10.1088/1749-4699/8/1/014008/meta?casa_token=tqIORp5s9sEAAAAA:FjY1TKwQHaK4LDiD4VIyEc9GKqaqMQR-mOFO2WhtaxvdBO6m5hdnl8A8xuo-2pwHGFL1nY-f) written on Hyperopt.
+4.  [Information](https://scikit-learn.org/stable/modules/grid_search.html#exhaustive-grid-search) on how to complete a grid search in scikit-learn and [sample code](https://towardsdatascience.com/hyperparameter-tuning-the-random-forest-in-python-using-scikit-learn-28d2aa77dd74) on implementing this with random forest.
+5.  Sample code for implementing Optuna and Hyperopt:
+    -   [Optuna #1](https://towardsdatascience.com/optuna-a-flexible-efficient-and-scalable-hyperparameter-optimization-framework-d26bc7a23fff)
+
+    -   [Optuna #2](https://towardsdatascience.com/exploring-optuna-a-hyper-parameter-framework-using-logistic-regression-84bd622cd3a5)
+
+    -   [Hyperopt #1](https://www.kaggle.com/code/virajbagal/eda-xgb-random-forest-parameter-tuning-hyperopt/notebook)
+
+    -   [Hyperopt #2](https://www.analyticsvidhya.com/blog/2020/09/alternative-hyperparameter-optimization-technique-you-need-to-know-hyperopt/)
