@@ -55,7 +55,7 @@ There are several pull requests that have been sitting in the repository for a l
 
 Issues are getting buried. Pull requests are left opened instead of closed (if not going to be put into use/merged). Additionally, the longer that packages go without an update, the higher the likelihood for bugs to be introduced as dependencies and Python versions update and change. In the world of software, 1.5 years is a long time to not update.
 
-#### **Dependencies  `(Score: 8/10)`**
+#### **Dependencies `(Score: 8/10)`**
 
 Hyperopt has **8** direct dependencies, which is a relatively small number, especially for the scale of the project. The low number of dependencies helps keep the project stable by reducing the chance that a dependency could have vulnerabilities or that an update to a could introduce unexpected functionality-breaking bugs.
 
@@ -63,7 +63,7 @@ Hyperopt has **8** direct dependencies, which is a relatively small number, espe
 
 A [Snyk analysis](https://snyk.io/advisor/python/hyperopt#security) found 0 direct vulnerabilities in the code and 3 indirect vulnerabilities, all associated with software dependencies. These indirect vulnerabilities were classified as **Low** severity. Overall, this indicates that Hyperopt is quite secure.
 
-#### Understandability  **`(Score:`**`5/10)`
+#### Understandability **`(Score:`**`5/10)`
 
 Hyperopt contains a basic README. It provides setup instructions, a simple example, and instructions for those interested in contributing to the software.
 
@@ -322,6 +322,16 @@ As we can see, Optuna excelled overall, with 67 points out of a possible 80, whi
 Optuna's high level of performance in this code review is not particularly surprising. It is currently considered one of the top hyperparameter tuning tools, and is often praised for its easy of use, understandability, and advanced features. Hyperopt *used* to be the gold standard, but its peak era was a decade ago, so it appears to be later in its lifecycle, and is potentially receiving less care and attention as it once did as a result.
 
 # Experimental Comparison
+
+In addition to comparing the code, we conducted an experiment to compare Hyperopt and Optuna -- both to each other and to the more basic parameter tuning method *Grid Search*. For each of our three conditions (Grid Search, Hyoperopt, Optuna), we ran two separate machine learning pipelines, one for a [classification]{.underline} problem and one for a [regression]{.underline} problem.
+
+For the [classification]{.underline} problem, we used data on [hospital readmissions](https://www.kaggle.com/code/iabhishekofficial/prediction-on-hospital-readmission), predicting whether someone will be readmitted to the hospital based on data from their last stay. To do this, we used the `RandomForestClassifier` model from `scikit-learn`. A snapshot of some of this data can be seen below:
+
+![](hospital-data.png){fig-align="center"}
+
+For the [regression]{.underline} problem, we used data on [CO2 emissions](https://www.kaggle.com/datasets/debajyotipodder/co2-emission-by-vehicles) from vehicles, predicting the CO2 output from a vehicle based on its engine size, fuel type, vehicle type, etc. To do this, we used the `RandomForestRegressor` model from `scikit-learn.` A snapshot of this data can be seen below:
+
+![](car-data.png){fig-align="center"}
 
 # Conclusion
 
