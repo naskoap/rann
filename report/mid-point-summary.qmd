@@ -3,8 +3,10 @@ title: "Tool Comparison: Optuna vs Hyperopt"
 author: "Audrey Bertin, Nasko Apostolov, Nelson Evbarunegbe, & Raymond Li"
 format: 
   pdf:
-    margin-top: "0.6in"
-    margin-bottom: "0.6in"
+    margin-top: "0.75in"
+    margin-bottom: "0.75in"
+    margin-left: "0.75in"
+    margin-right: "0.75in"
     include-in-header: 
       text: '\pagenumbering{gobble}'
 editor: visual
@@ -38,8 +40,8 @@ They also both have publicly available documentation sites:
 
 We will evaluate these tools in two separate ways:
 
-1.  A **code review**, where we look at the repositories and note things that they are each doing well or not so well.
-2.  An **experimental evaluation**, where we test an actual hyperparameter tuning process using sample data to compare ease of use, UI features, and which tool creates the best final model.
+1.  A **code and UI review**, where we look at the repositories and note things that they are each doing well or not so well, as well as look at the UI features provided by each tool
+2.  An **experimental evaluation**, where we test an actual hyperparameter tuning process using sample data to compare ease of use and which tool creates the best final model
 
 ## Code Review
 
@@ -67,13 +69,17 @@ For non-functional requirements, we will look at the following subset:
 
 For each of these categories we will rate the repository's performance on a scale from 1-10. This score is subjective and will be backed up by arguments for both what the repository is doing well, and where it could be improved. At the end, we will share a table summarizing the ratings in each category to compare each tool's strengths and weaknesses (code-wise). We will also sum up the scores to determine an overall best tool based on code quality.
 
+We will also conduct a UI review, where we look at the UI features available in each tool. For Hyperopt, this is several built in plotting functions and for Optuna, this is a full dashboard. For each, we will discuss both the good and bad elements of design, as well as how well those features assist in the parameter tuning process.
+
 ## Experimental Evaluation
 
-For the experimental version of the tool, we will be comparing three separate options for Hyperparameter tuning: 1) Standard grid search, 2) Using Hyperopt, 3) Using Optuna.
+For the experimental evaluation component, we will be comparing three separate options for Hyperparameter tuning: 1) Standard grid search, 2) Using Hyperopt, 3) Using Optuna.
+
+We include grid search to add a second point of comparison -- external tool vs features available within the standard machine learning models in Python (rather than solely Tool #1 vs Tool #2).
 
 For each tuning technique, we will run a full machine learning tuning process *two* separate times, once for a [classification]{.underline} problem and once for a [regression]{.underline} problem. This means a total of 6 different conditions.
 
-For our [classification]{.underline} condition, we will be using a dataset to predict whether a patient will be readmitted to the hospital based on data from their prior visit (number of days at hospital, medications given, etc.). A sample of some of the columns in this dataset is shown below:
+For our [classification]{.underline} condition, we will be using a dataset to predict whether a patient will be readmitted to the hospital based on data from their prior visit (number of days at hospital, medications given, etc.). This data is [from Kaggle](https://www.kaggle.com/code/iabhishekofficial/prediction-on-hospital-readmission), and we have cleaned it in order to prepare it for modeling. A sample of some of the columns in this dataset is shown below:
 
 ```{r}
 #| include: false
@@ -83,40 +89,52 @@ library(knitr)
 
 ```{r}
 #| echo: false
-readmissions <- readr::read_csv("../data/classification/hospital_readmissions.csv", show_col_types = FALSE)
-knitr::kable(readmissions %>% select(age, time_in_hospital, n_lab_procedures,diag_1, glucose_test, readmitted) %>% head(3))
+readmissions <- readr::read_csv("../data/classification/readmissions_clean.csv", show_col_types = FALSE)
+knitr::kable(readmissions %>% select(age_decade, time_in_hospital, n_procedures, n_medications, high_glucose, high_A1C, readmitted) %>% head(3))
 ```
 
 We will predict the variable `readmitted` using all of the other variables. We will use the `RandomForestClassifier` from `scikit-learn` as our machine learning model.
 
-In order to compare the performance of each tool on the classification problem, we will use the following metrics:
+In order to compare the performance of each tool on the classification problem, we will use the following metrics. The first three have to do with the actual performance of the model, while the last is more of a usability metric.
 
-# NEED METRICS
+-   **Accuracy** - How often the model makes the right prediction overall
 
-We will also do a short UI review comparing the UI options in Hyperopt and Optuna for a classification problem.
+-   **Precision** -- For positive predictions, how many were actually positive? (Catches false positives)
 
-For our [regression]{.underline} condition, we will be predicting the CO2 emissions of a vehicle based on a variety of features, such as engine size, transmission type, and fuel type. A sample of the dataset (not all columns) is included below:
+-   **Recall** -- How many true positives we capture through labeling them positive? (Catches false negatives)
+
+-   **Tuning Time** -- How long the algorithm takes to run and pick the best parameters
+
+For our [regression]{.underline} condition, we will be predicting the CO2 emissions of a vehicle based on a variety of features, such as engine size, transmission type, and fuel type. This data is [from Kaggle](https://www.kaggle.com/datasets/debajyotipodder/co2-emission-by-vehicles), and we have cleaned it in order to prepare it for modeling. A sample of several columns in the dataset is included below:
 
 ```{r}
 #| echo: false
-emissions <- readr::read_csv("../data/regression/CO2_Emissions_Canada.csv", show_col_types = FALSE)
-new_cols <- c("make", "model", "class", "engine_size", "cylinders", "transmission", "fuel_type", "fuel_consump_city", "fuel_consump_hwy", "fuel_consump_cmb", "fuel_consump_cmb_mph", "emissions") 
+emissions <- readr::read_csv("../data/regression/emissions_cleaned.csv", show_col_types = FALSE)
 
 
-
-colnames(emissions) <- new_cols
-emissions <- emissions %>% select(-fuel_consump_cmb_mph) 
-
-
-knitr::kable(emissions %>% select(class, engine_size, cylinders, fuel_type, fuel_consump_city, emissions) %>% head(3))
+knitr::kable(emissions %>% select(engine_size, cyl, fuel_consump_city, fuel_premium, class_compact, class_truck, co2_emissions) %>% head(3))
 
 ```
 
 We will predict the variable `emissions` using all of the other variables. We will use the `RandomForestRegressor` from `scikit-learn` as our machine learning model.
 
-In order to compare the performance of each tool on the classification problem, we will use the following metrics:
+In order to compare the performance of each tool on the regression problem, we will use the following metrics. The first three have to do with the actual performance of the model, while the last is more of a usability metric.
 
-# NEED METRICS
+-   **Mean Absolute Error (MAE)** -- Average distance between predicted values and true values (in units of problem)
+
+-   **Mean Absolute Percentage Error (MAPE)** -- Average distance between predicted values and true values (in *percentage* difference)
+
+-   **Mean Squared Error (MSE)** -- Average *squared* distance between predicted values and true values; punishes outliers more than MAE
+
+-   **Tuning Time** -- How long the algorithm takes to run and pick the best parameters
+
+In order to keep processes as similar as possible across all of our conditions, we will plan to do the following:
+
+1.  For Optuna and Hyperopt, both tools require us to define an "objective" we are trying to maximize or minimize. We will use the same objective for both tools.
+2.  We will use the same variables in our dataset (all of them) for all conditions. We will also use the same train test split percentage (80/20).
+3.  For grid search, we have to subjectively select a handful of parameters for the model to try. For our Optuna and Hyperopt models, we provide a starting point range. We will attempt to ensure that the values we selected for our grid search are included in this range to maintain consistency.
+
+In addition to all of the objective metrics we will be computing, we will also provide a short note on how easy or difficult it was to figure out how to use each tool (Optuna and Hyperopt specifically) on our data.
 
 ## Related Work/References
 
