@@ -301,7 +301,7 @@ The code is also written with a high level of extensibility. Just like Hyperopt,
 
 In addition, Optuna provides lots of extra resources to make contribution easier. For example, there is a full Developer's Guide provided on GitHub for **both** the original Optuna repository **and** the dashboard repository. For example, this is how the guide on the original repository starts:
 
-![](optuna-contribute.png)
+![](images/optuna-contribute.png)
 
 The authors already note which areas particularly need more work (e.g. extending tutorials and examples, improving documentation) and then later in the document provide an extensive overview of the steps for contributing to the code. This is excellent and more detailed than the contribution pages on most other repositories. For those wanting to extend the package, it provides an excellent overview to get them started and helps maintain a consistent process and workflow.
 
@@ -315,7 +315,7 @@ Some functions can be a little long, however, and some utility functions are not
 
 In the table below, we summarize the results of the code review in terms of each tool's scores by category.
 
-![](comparison-table.png){fig-align="center" width="500"}
+![](images/comparison-table.png){fig-align="center"}
 
 As we can see, Optuna excelled overall, with 67 points out of a possible 80, while Hyperopt trailed behind. Optuna's strengths primarily came in terms of its active community and regular maintenance, and high degree of understandability, testability/debuggability and extensibility/scalability. Hyperopt and Optuna both performed excellently in terms of security, with no direct vulnerabilities and only a couple weak, low severity ones. Hyperopt did out-score Optuna in one category as well: dependencies. Hyperopt has *less than half* the number of dependencies Optuna has, which helps protect it from bugs.
 
@@ -327,11 +327,11 @@ In addition to comparing the code, we conducted an experiment to compare Hyperop
 
 For the [classification]{.underline} problem, we used data on [hospital readmissions](https://www.kaggle.com/code/iabhishekofficial/prediction-on-hospital-readmission), predicting whether someone will be readmitted to the hospital based on data from their last stay. To do this, we used the `RandomForestClassifier` model from `scikit-learn`. A snapshot of some of this data can be seen below:
 
-![](hospital-data.png){fig-align="center"}
+![](images/hospital-data.png){fig-align="center"}
 
 For the [regression]{.underline} problem, we used data on [CO2 emissions](https://www.kaggle.com/datasets/debajyotipodder/co2-emission-by-vehicles) from vehicles, predicting the CO2 output from a vehicle based on its engine size, fuel type, vehicle type, etc. To do this, we used the `RandomForestRegressor` model from `scikit-learn.` A snapshot of this data can be seen below:
 
-![](car-data.png){fig-align="center"}
+![](images/car-data.png){fig-align="center"}
 
 # Conclusion
 
