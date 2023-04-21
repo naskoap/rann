@@ -1,4 +1,4 @@
-# rann
+# Team RANN – Tool Comparison: Hyperopt vs Optuna
 
 ### Team Members:
 - Nasko Apostolov
@@ -6,19 +6,17 @@
 - Nelson Evbarunegbe
 - Raymond Li
 
-### Project Google Folder 
+### Project Overview:
 
-This folder contains slides shared at midpoint and final presentations, as well as any other media such as recordings.
+Hyperopt and Optuna are two Python-based tools designed to help with the step of __hyperparameter optimization__ in a machine learning pipeline. Both have UI features that allow users to compare the performance of different parameter combinations, and both integrate with standard Python ML libraries, including `scikit-learn` and `Tensorflow`.
 
-https://drive.google.com/drive/folders/1knJQ2KCqIkrWExxXIYlPUy4Rd-sNyZU0?usp=share_link
+Official resources for Hyperopt and Optuna are provided below:
 
-### Project Topic:
+#### Hyperopt:
 
-Tool comparison – *Optuna* vs. *Hyperopt*
+- GitHub Repository: https://github.com/hyperopt/hyperopt
 
-Optuna and Hyperopt are two Python-based tools designed to help with the step of __parameter optimization__ in a machine learning pipeline. Both have UI features that allow users to compare the performance of different parameter combinations, and both integrate with standard Python ML libraries, including `scikit-learn` and `Tensorflow`.
-
-Official resources for Optuna and Hyperopt are provided below:
+- Documentation: http://hyperopt.github.io/hyperopt/
 
 #### Optuna:
 
@@ -26,33 +24,47 @@ Official resources for Optuna and Hyperopt are provided below:
 
 - Website (includes documentation and tutorials): https://optuna.org
 
-#### Hyperopt:
 
-- GitHub Repository (Hyperopt generally): https://github.com/hyperopt/hyperopt
+In this project, we compare the two tools to one another AND to how many people might complete the hyperparameterparameter optimization without a tool (grid search).
 
-- GitHub Repository (sci-kit learn specific implementation): https://github.com/hyperopt/hyperopt-sklearn
-
-- Documentation: http://hyperopt.github.io/hyperopt/
-
-#### Other Resources:
-
-Users have tried these tools and written tutorials and summaries of their experiences. Some of this un-official work is linked below:
-
-- Optuna vs Hyperopt #1: https://neptune.ai/blog/optuna-vs-hyperopt
-
-- Optuna vs Hyperopt #2: https://www.educative.io/answers/optuna-vs-hyperopt-in-python
-
-- Experimental comparison of a variety of tools: https://medium.com/@gerbentempelman/comparing-hyperparameter-optimization-frameworks-in-python-a-conceptual-and-pragmatic-approach-24d9baa1cc69
-
-- Research paper on comparative study of optimization tools: https://arxiv.org/pdf/2201.06433.pdf
-
-- Deep dive on examples of Optuna: https://towardsdatascience.com/optuna-a-flexible-efficient-and-scalable-hyperparameter-optimization-framework-d26bc7a23fff
-
-- Deep dive on Hyperopt-sklearn: https://towardsdatascience.com/hyperopt-hyperparameter-tuning-based-on-bayesian-optimization-7fa32dffaf29
+There are three different parts to this comparison:
+1. A code review of the official repositories
+2. A UI review where we look at the UI features available in both tools
+3. An experiment where we run a full machine learning pipeline using each of our tools--Grid Search, Hyperopt, and Optuna--to compare algorithm speed and performance (in terms of improving model scores). For each tool, we test it on two separate datasets, one for classification and one for regression.
 
 
 ### Repository Structure
 
-In this project, we conduct a code analysis of both tools above, as well as an experiment (in Python) to test their performance. 
+#### Data Folder
 
-The written documentation summarizing the code review and experiment results can be found in the `/report` folder, while the `/experiment` folder contains the Python code used to conduct the experiment.
+The `/data` folder contains the data used in the experiment. There is one dataset for classification, under the `/classification` subfolder, and one dataset for regression under the `/regression` subfolder. 
+
+Both datasets come from Kaggle, at the following links:
+
+Classification -- predicting whether a patient will be readmitted to the hospital based on data from their last hospital visit:
+https://www.kaggle.com/code/iabhishekofficial/prediction-on-hospital-readmission
+
+Regression -- predicting CO2 emissions from vehicles based on features of the car (engine size, fuel type, etc.):
+https://www.kaggle.com/datasets/debajyotipodder/co2-emission-by-vehicles
+
+In each subfolder, there is a raw version of the data as directly downloaded from Kaggle, as well as a cleaned version, which has been reformatted and simplified into a format that can be processed by a random forest model. There is also a Jupyter notebook that includes all of the code used to convert the data from the original format to the cleaned format.
+
+#### Experiment Folder
+
+In the `/experiment` folder, we store all of the code used to run the machine learning pipelines for each of the experimental conditions: Grid Search, Hyperopt, and Optuna.
+
+#### Report folder
+
+In the `/report` subfolder we store all of the files used to generate the midpoint report and final report, including the files used to write the documents, any images that are embedded, and PDF outputs.
+
+
+### Project Google Folder 
+
+In addition to this repository, we also have a project Google Folder which stores additional items. 
+
+This folder contains slides shared at midpoint and final presentations, as well as any other media such as recordings.
+
+https://drive.google.com/drive/folders/1knJQ2KCqIkrWExxXIYlPUy4Rd-sNyZU0?usp=share_link
+
+
+
