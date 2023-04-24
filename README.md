@@ -35,6 +35,8 @@ There are three different parts to this comparison:
 
 ### Repository Structure
 
+*Note:* In the main folder, there is a `requirements.txt` file that contains a list of all of the packages we installed in the virtual environment used to generate and run the code for this project. You can recreate the environment by installing these packages with `pip install requirements.txt`.
+
 #### Data Folder
 
 The `/data` folder contains the data used in the experiment. There is one dataset for classification, under the `/classification` subfolder, and one dataset for regression under the `/regression` subfolder. 
@@ -65,6 +67,3 @@ In addition to this repository, we also have a project Google Folder which store
 This folder contains slides shared at midpoint and final presentations, as well as any other media such as recordings.
 
 https://drive.google.com/drive/folders/1knJQ2KCqIkrWExxXIYlPUy4Rd-sNyZU0?usp=share_link
-
-
-
