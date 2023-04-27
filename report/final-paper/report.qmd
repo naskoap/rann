@@ -425,7 +425,17 @@ Similar to the classification experiment, Grid Search was much slower than Hyper
 
 Hyperopt and Optuna both scored better than Grid Search in our goal metric (MSE), with Optuna scoring the best overall. All tools were relatively similar in terms of MAE and MAPE.
 
-## Experiment Summary
+## Additional Notes
+
+In terms of ease to code, both Hyperopt and Optuna took relatively similar amount of time to figure out how to use. However, this was mostly because of similar examples being available online. Based purely on the official examples provided by Hyperopt, it was not clear how to conduct the experiment as desired, and external resources were required. With Optuna, we only needed to look at the official documentation.
+
+However, using both Hyperopt and Optuna required more code and thinking to use than doing Grid Search, as users needed to write additional definitions for what to optimize and how to create an tuning study.
+
+Both Hyperopt and Optuna share the nice feature of being able to specify exactly which metric you want to maximize or minimize. This is a great option for situations where users may care about one metric more than others. For example, if working with medical data, false negatives may be dangerous and users might want to prioritize *recall* in their modeling order to minimize those.
+
+Based on this experiment, Optuna's version of this metric customization is much more straightforward to implement. Hyperopt uses an unintuitive system where you can only *minimize* a function. This means if you are trying to maximize something (such as accuracy), you need to return the negative version of this metric. This is easy to miss, providing extra opportunity for having a mistake and accidentally tuning the model the opposite direction of what is desired. In Optuna, you can manually select minimization or maximization, making this much less error-prone.
+
+# Conclusion
 
 ------------------------------------------------------------------------
 
