@@ -33,7 +33,7 @@ Several hyperparameter tuning tools have been developed in recent years to help 
 
 **Hyperopt** (released in 2011) and **Optuna** (released in 2020) and are two industry standard parameter optimization tools designed to integrate with Python. Both have their code publicly available on GitHub, have public documentation pages, and include UI components. For more details, see the Appendix.
 
-In this project, we compare these two tools. We start with a code review of both tools based on the code available in their public repositories, followed by a short UI review. After this, we then conduct an experimental comparison where we train and tune a machine learning model using Scikit-Learn in combination with both Hyperopt and Optuna and compare their performance to a standard grid search.
+In this project, we compare these two tools. We start with a code review of both tools based on the code available in their public repositories. After this, we then conduct an experimental comparison where we train and tune a machine learning model using Scikit-Learn in combination with both Hyperopt and Optuna and compare their performance to a standard grid search. As part of this experiment, we generate the UI components provided by Hyperopt and Optuna, and provide a UI review.
 
 # Code Review: 
 
@@ -335,12 +335,6 @@ As we can see, Optuna excelled overall, with 67 points out of a possible 80, whi
 
 Optuna's high level of performance in this code review is not particularly surprising. It is currently considered one of the top hyperparameter tuning tools, and is often praised for its easy of use, understandability, and advanced features. Hyperopt *used* to be the gold standard, but its peak era was a decade ago, so it appears to be later in its lifecycle, and is potentially receiving less care and attention as it once did as a result.
 
-# UI Review
-
-## Hyperopt
-
-## Optuna
-
 # Experimental Comparison
 
 In addition to comparing the code, we conducted an experiment to compare Hyperopt and Optuna -- both to each other and to the more basic parameter tuning method *Grid Search*. For each of our three conditions (Grid Search, Hyoperopt, Optuna), we ran two separate machine learning pipelines, one for a [classification]{.underline} problem and one for a [regression]{.underline} problem.
@@ -434,6 +428,12 @@ However, using both Hyperopt and Optuna required more code and thinking to use t
 Both Hyperopt and Optuna share the nice feature of being able to specify exactly which metric you want to maximize or minimize. This is a great option for situations where users may care about one metric more than others. For example, if working with medical data, false negatives may be dangerous and users might want to prioritize *recall* in their modeling order to minimize those.
 
 Based on this experiment, Optuna's version of this metric customization is much more straightforward to implement. Hyperopt uses an unintuitive system where you can only *minimize* a function. This means if you are trying to maximize something (such as accuracy), you need to return the negative version of this metric. This is easy to miss, providing extra opportunity for having a mistake and accidentally tuning the model the opposite direction of what is desired. In Optuna, you can manually select minimization or maximization, making this much less error-prone.
+
+# UI Review
+
+## Hyperopt
+
+## Optuna
 
 # Conclusion
 
