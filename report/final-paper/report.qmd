@@ -33,9 +33,11 @@ Several hyperparameter tuning tools have been developed in recent years to help 
 
 **Hyperopt** (released in 2011) and **Optuna** (released in 2020) and are two industry standard parameter optimization tools designed to integrate with Python. Both have their code publicly available on GitHub, have public documentation pages, and include UI components. For more details, see the Appendix.
 
-In this project, we compare these two tools. We start with a code review of both tools based on the code available in their public repositories. After this, we then conduct an experimental comparison where we train and tune a machine learning model using Scikit-Learn in combination with both Hyperopt and Optuna and compare their performance to a standard grid search.
+In this project, we compare these two tools. We start with a code review of both tools based on the code available in their public repositories, followed by a short UI review. After this, we then conduct an experimental comparison where we train and tune a machine learning model using Scikit-Learn in combination with both Hyperopt and Optuna and compare their performance to a standard grid search.
 
-# Code Review: Hyperopt ([GitHub](https://github.com/hyperopt/hyperopt))
+# Code Review: 
+
+## Hyperopt ([GitHub](https://github.com/hyperopt/hyperopt))
 
 In this section, we cover several characteristics of the GitHub repository that are not code specific, as well as non-functional requirements (functional requirements and UI review will be discussed in the experimental comparison). For each category, we rate the repository on a scale of 1-10. Note that all of the information in this section is as of March 2023, and may have changed since then.
 
@@ -184,7 +186,7 @@ In terms of extensibility, the first major feature promoting this is of course t
 
 However, the lack of documentation and clear organization makes extending the tool more difficult. It is sometimes hard to tell what each function is doing and what features are really available, which is necessary in order to understand what could potentially be added.
 
-# Code Review: Optuna ([GitHub](https://github.com/optuna/optuna))
+## Optuna ([GitHub](https://github.com/optuna/optuna))
 
 #### Popularity/Use **`(Score: 8/10)`**
 
@@ -311,7 +313,7 @@ Optuna's excellent documentation helps make this process easy as well. Almost al
 
 Some functions can be a little long, however, and some utility functions are not fully documented, so there is still room for a little bit of improvement on the extensibiility side.
 
-# Code Review: Summary
+## Summary
 
 In the table below, we summarize the results of the code review in terms of each tool's scores by category.
 
@@ -321,17 +323,55 @@ As we can see, Optuna excelled overall, with 67 points out of a possible 80, whi
 
 Optuna's high level of performance in this code review is not particularly surprising. It is currently considered one of the top hyperparameter tuning tools, and is often praised for its easy of use, understandability, and advanced features. Hyperopt *used* to be the gold standard, but its peak era was a decade ago, so it appears to be later in its lifecycle, and is potentially receiving less care and attention as it once did as a result.
 
+# UI Review
+
+## Hyperopt
+
+## Optuna
+
 # Experimental Comparison
 
 In addition to comparing the code, we conducted an experiment to compare Hyperopt and Optuna -- both to each other and to the more basic parameter tuning method *Grid Search*. For each of our three conditions (Grid Search, Hyoperopt, Optuna), we ran two separate machine learning pipelines, one for a [classification]{.underline} problem and one for a [regression]{.underline} problem.
+
+In order to keep the results consistent, we maintained the following across our trials:
+
+-   **The train/test split --** We use a random seed to split the data into training and testing sets *exactly* the same way for each condition so that we are comparing 1:1.
+
+-   **Predictors --** We used the exact same set of predictor columns to predict our outcome variable in each dataset (all columns of the data other than the target). Since the train test split was identical, this means an exact data copy/set of predictor and target values across all conditions.
+
+-   **Hyperparameters.** We tuned the same set of three hyperparameters in all of our tests: `n_estimators`, `max_depth`, `max_features`.
+
+-   **Metrics.** Within the classification and regression conditions, we used the same metrics to score each tool.
+
+## Classification
 
 For the [classification]{.underline} problem, we used data on [hospital readmissions](https://www.kaggle.com/code/iabhishekofficial/prediction-on-hospital-readmission), predicting whether someone will be readmitted to the hospital based on data from their last stay. To do this, we used the `RandomForestClassifier` model from `scikit-learn`. A snapshot of some of this data can be seen below:
 
 ![](images/hospital-data.png){fig-align="center"}
 
+In order to compare the three tools, we used four different metrics:
+
+1.  **Accuracy** -- How often the model makes the right prediction overall
+2.  **Precision** -- For positive predictions, how many were *actually* positive? (catches false positives)
+3.  **Recall** -- How many true positives we capture through labeling them positive? (catches false negatives)
+4.  **Tuning Time** -- How long the algorithm takes to run and pick the best parameters
+
+Accuracy, precision, and recall are measured as decimal values between 0 and 1. *Higher* values (closer to 1) mean better performance. Tuning time is measured in minutes and seconds, and *lower* values mean a more efficient algorithm/better performance.
+
+## Regression
+
 For the [regression]{.underline} problem, we used data on [CO2 emissions](https://www.kaggle.com/datasets/debajyotipodder/co2-emission-by-vehicles) from vehicles, predicting the CO2 output from a vehicle based on its engine size, fuel type, vehicle type, etc. To do this, we used the `RandomForestRegressor` model from `scikit-learn.` A snapshot of this data can be seen below:
 
 ![](images/car-data.png){fig-align="center"}
+
+In order to compare the three tools, we used four different metrics:
+
+1.  **Mean Absolute Error (MAE)** -- Average distance between predicted values and true values (in units of problem)
+2.  **Mean Absolute Percentage Error (MAPE)** -- Average distance between predicted values and true values (in *percentage* difference)
+3.  **Mean Squared Error (MSE)** -- Average *squared* distance between predicted values and true values; punishes outliers more than MAE
+4.  Tuning Time -- How long the algorithm takes to run and pick the best parameters
+
+MAE, MAPE, and MSE are all positive decimals with no upper limit. *Smaller* values (as close to zero as possible) mean better performance. Again, tuning time is measured in minutes and seconds, and *lower* values mean a more efficient algorithm/better performance.
 
 # Conclusion
 
