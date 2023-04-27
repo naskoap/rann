@@ -317,7 +317,19 @@ Some functions can be a little long, however, and some utility functions are not
 
 In the table below, we summarize the results of the code review in terms of each tool's scores by category.
 
-![](images/comparison-table.png){fig-align="center"}
+| Metric                    | Hyperopt | Optuna |
+|---------------------------|----------|--------|
+| Popularity                | 8        | 8      |
+| Community                 | 7        | 9      |
+| Maintenance               | 4        | 9      |
+| Dependencies              | 8        | 5      |
+| Security                  | 9        | 9      |
+| Understandability         | 5        | 9      |
+| Testability/Debuggability | 7        | 9      |
+| Extensibility/Scalability | 5        | 9      |
+| TOTAL ( /80 )             | 53       | 67     |
+
+: Code Review Scores by Category
 
 As we can see, Optuna excelled overall, with 67 points out of a possible 80, while Hyperopt trailed behind. Optuna's strengths primarily came in terms of its active community and regular maintenance, and high degree of understandability, testability/debuggability and extensibility/scalability. Hyperopt and Optuna both performed excellently in terms of security, with no direct vulnerabilities and only a couple weak, low severity ones. Hyperopt did out-score Optuna in one category as well: dependencies. Hyperopt has *less than half* the number of dependencies Optuna has, which helps protect it from bugs.
 
@@ -341,7 +353,19 @@ In order to keep the results consistent, we maintained the following across our 
 
 -   **Hyperparameters.** We tuned the same set of three hyperparameters in all of our tests: `n_estimators`, `max_depth`, `max_features`.
 
--   **Metrics.** Within the classification and regression conditions, we used the same metrics to score each tool.
+-   **Hyperparameter ranges.** We used the same range of hyperparameters for each tool as well. For grid search, we provided the following grid: `max_depth`: \[5, 7, 10, 15\], `max_features`: \[3, 5, 8, 10\], `n_estimators`: \[50, 150, 200, 300\]. For Hyperopt and Optuna, rather than pre-selecting values, you provide a range. We provided the following integer ranges, so that they exactly overlapped: `max_depth`: 5-15, `max_features`: 3-10, `n_estimators`: 50-300.
+
+-   **Metrics.** Within the classification and regression conditions, we used the same metrics to score each tool. Hyperopt and Optuna also require us to select a specific metric to maximize or minimize. We used the same metric for each tool.
+
+-   **Computer.** To keep computing power consistent and make tuning time meaningful, each experiment was executed on the same laptop with the same settings.
+
+For each trial, we completed the same steps:
+
+1.  Read in data and split into train and test.
+2.  Run the specified tuning algorithm/tool, calculating tuning time in the process.
+3.  If there is a UI component of the tuning tool, run the code needed to create this.
+4.  Take the optimal parameters returned by the tuning step and retrain the model using these parameters.
+5.  Use this model to return final performance metrics (described in the sections below).
 
 ## Classification
 
@@ -358,6 +382,19 @@ In order to compare the three tools, we used four different metrics:
 
 Accuracy, precision, and recall are measured as decimal values between 0 and 1. *Higher* values (closer to 1) mean better performance. Tuning time is measured in minutes and seconds, and *lower* values mean a more efficient algorithm/better performance.
 
+For our three tools, we saw the following results for these metrics. Note that Hyperopt and Optuna were both defined to maximize *Accuracy*.
+
+| Metric      | Grid Search   | Hyperopt      | Optuna        |
+|-------------|---------------|---------------|---------------|
+| Accuracy    | 0.628         | 0.627         | 0.629         |
+| Precision   | 0.625         | 0.630         | 0.632         |
+| Recall      | 0.497         | 0.479         | 0.482         |
+| Tuning Time | 9 min, 24 sec | 3 min, 35 sec | 3 min, 25 sec |
+
+: Classification Experiment Metrics By Tuning Tool
+
+Grid search was by far the slowest tool, nearly 3 times slower than Hyperopt and Optuna, which were both approximately the same speed. All tools performed approximately the same in terms of accuracy (the goal metric), Hyperopt and Optuna excelled at precision, and Grid Search was the best for recall.
+
 ## Regression
 
 For the [regression]{.underline} problem, we used data on [CO2 emissions](https://www.kaggle.com/datasets/debajyotipodder/co2-emission-by-vehicles) from vehicles, predicting the CO2 output from a vehicle based on its engine size, fuel type, vehicle type, etc. To do this, we used the `RandomForestRegressor` model from `scikit-learn.` A snapshot of this data can be seen below:
@@ -369,11 +406,26 @@ In order to compare the three tools, we used four different metrics:
 1.  **Mean Absolute Error (MAE)** -- Average distance between predicted values and true values (in units of problem)
 2.  **Mean Absolute Percentage Error (MAPE)** -- Average distance between predicted values and true values (in *percentage* difference)
 3.  **Mean Squared Error (MSE)** -- Average *squared* distance between predicted values and true values; punishes outliers more than MAE
-4.  Tuning Time -- How long the algorithm takes to run and pick the best parameters
+4.  **Tuning Time** -- How long the algorithm takes to run and pick the best parameters
 
 MAE, MAPE, and MSE are all positive decimals with no upper limit. *Smaller* values (as close to zero as possible) mean better performance. Again, tuning time is measured in minutes and seconds, and *lower* values mean a more efficient algorithm/better performance.
 
-# Conclusion
+For our three tools, we saw the following results for these metrics. Note that Hyperopt and Optuna were both defined to minimize *MSE*.
+
+| Metric      | Grid Search   | Hyperopt      | Optuna       |
+|-------------|---------------|---------------|--------------|
+| MAE         | 1.692         | 1.686         | 1.691        |
+| MAPE        | 0.007         | 0.007         | 0.007        |
+| MSE         | 10.143        | 9.835         | 9.665        |
+| Tuning Time | 2 min, 47 sec | 0 min, 59 sec | 1 min, 5 sec |
+
+: Regression Experiment Metrics By Tuning Tool
+
+Similar to the classification experiment, Grid Search was much slower than Hyperopt and Optuna, taking more than twice as long. Note that the overall decreased tuning time for this experiment is likely the result of the dataset for regression being much smaller (\~1/4th the size) of the dataset for classification.
+
+Hyperopt and Optuna both scored better than Grid Search in our goal metric (MSE), with Optuna scoring the best overall. All tools were relatively similar in terms of MAE and MAPE.
+
+## Experiment Summary
 
 ------------------------------------------------------------------------
 
