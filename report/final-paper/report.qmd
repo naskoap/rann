@@ -265,7 +265,7 @@ def stop(self) -> None:
 
 Overall the test suite appears to be well written and extensive, though we only see metrics on line coverage (and not branch coverage, which typically requires more tests). It is possible that some improvements could still be made.
 
-#### Extensibility/Scalability **`(Score: 9/10)`**
+#### Extensibility/Scalability **`(Score: 7/10)`**
 
 Optuna solves some of the issues with scalability faced by Hyperopt. For one, parallel computing is built into Optuna. Anyone who wants to use it can apply parallel processing out of the box, without the need for integration with other tools. This means it is already designed to run well at scale and handle large processing requests.
 
@@ -279,7 +279,9 @@ One additional convenient feature for production deployments is the inclusion of
 $ docker pull ghcr.io/optuna/optuna-dashboard:latest
 ```
 
-The code is also written with a high level of extensibility. Just like Hyperopt, all of the code is publicly available on GitHub--both for the original tool itself and for additional features like the dashboard--making it easy to contribute.
+However, one area where Optuna falls short of Hyperopt is with integrations to other common ML tools. Hyperopt has explicit examples and information provided on how to integrate with tools like MLFlow that are commonly used in production environments. Optuna has no such information provided, and it is not clear to users how to conduct these integrations.
+
+In terms of extensibility, Optuna does very well. Just like Hyperopt, all of the code is publicly available on GitHub--both for the original tool itself and for additional features like the dashboard--making it easy to contribute.
 
 In addition, Optuna provides lots of extra resources to make contribution easier. For example, there is a full Developer's Guide provided on GitHub for **both** the original Optuna repository **and** the dashboard repository. For example, this is how the guide on the original repository starts:
 
@@ -306,12 +308,12 @@ In the table below, we summarize the results of the code review in terms of each
 | Security                  | 9        | 9      |
 | Understandability         | 5        | 9      |
 | Testability/Debuggability | 7        | 9      |
-| Extensibility/Scalability | 5        | 9      |
-| TOTAL ( /80 )             | 53       | 67     |
+| Extensibility/Scalability | 5        | 7      |
+| TOTAL ( /80 )             | 53       | 65     |
 
 : Code Review Scores by Category
 
-As we can see, Optuna excelled overall, with 67 points out of a possible 80, while Hyperopt trailed behind. Optuna's strengths primarily came in terms of its active community and regular maintenance, and high degree of understandability, testability/debuggability and extensibility/scalability. Hyperopt and Optuna both performed excellently in terms of security, with no direct vulnerabilities and only a couple weak, low severity ones. Hyperopt did out-score Optuna in one category as well: dependencies. Hyperopt has *less than half* the number of dependencies Optuna has, which helps protect it from bugs.
+As we can see, Optuna excelled overall, with 65 points out of a possible 80, while Hyperopt trailed behind. Optuna's strengths primarily came in terms of its active community and regular maintenance, and high degree of understandability, testability/debuggability and extensibility/scalability. Hyperopt and Optuna both performed excellently in terms of security, with no direct vulnerabilities and only a couple weak, low severity ones. Hyperopt did out-score Optuna in one category as well: dependencies. Hyperopt has *less than half* the number of dependencies Optuna has, which helps protect it from bugs.
 
 Optuna's high level of performance in this code review is not particularly surprising. It is currently considered one of the top hyperparameter tuning tools, and is often praised for its easy of use, understandability, and advanced features. Hyperopt *used* to be the gold standard, but its peak era was a decade ago, so it appears to be later in its lifecycle, and is potentially receiving less care and attention as it once did as a result.
 
@@ -411,8 +413,52 @@ Based on this experiment, Optuna's version of this metric customization is much 
 
 # UI Review
 
+During the experiment, we implemented the available UI features in each of our two external tools. In this section, we summarize what those features are and the pros and cons we found for each based on our use.
+
 ## Hyperopt
 
+Hyperopt has three plotting functions, the results of which are displayed below:
+
+![](images/hyperopt-ui.png){fig-align="center"}
+
+### Pros
+
+-   Graphs are really easy to generate (requiring just a line of code each).
+
+-   For those working in tools like Jupyter notebooks (which are common in ML), the graphs can be automatically embedded in the notebook and easily shared.
+
+### Cons
+
+-   Visualizations are just built on top of basic `matplotlib`, which users could graph by themselves without much effort. No sort of advanced visualization capabilities are available.
+
+-   The scatterplot of loss history is a bit hard to read, as the points blend together and it is hard to see which point came before a previous one.
+
+-   For the third graph (right), there is no documentation in the tool telling the user what this is supposed to show, so it is unclear what this one even does.
+
+-   Some of the information does not seem all that useful. Not sure why someone would need to know the information provided by the loss histogram, as this would not really help influence how a model gets tuned (since we mostly care about just the optimal value, rather than the distribution).
+
+-   A basic-graph-based visualization tool is great for small scale work, but not as good for production level work in industry, where an interactive dashboard is preferred.
+
 ## Optuna
+
+Optuna has an interactive dashboard that opens up in a web browser. This is not easily captured with images, so instead, we created the dashboard and then recording ourselves scrolling through it and interacting with different graphs. The recording can be viewed [here](https://drive.google.com/file/d/1DsS_wibUr-DK0hWDWvgwG1eJEUXoL4r5/view?usp=share_link).
+
+### Pros
+
+-   Wide variety of plots showing lots of different information (and much more information than provided by Hyperopt). Some plots seem very useful, such as one that shows how important each different parameter was to the overall tuning process.
+
+-   The history plot is much easier to follow than Hyperopt, as it has an clear trend for the most optimal value over time, which is separated out from the rest of the data points.
+
+-   Plots are interactive, allowing users to hover around data points to access further information on these points and visualize them in scale.
+
+-   The dashboard format is easier to productionalize than basic graphs.
+
+### Cons
+
+-   There is not much documentation on what each of the graphs shows, so even though there is a lot of information, users may not know how to use it without lots of domain knowledge.
+
+-   The large number of plots might feel overwhelming, especially if users only care about 2 or 3 of them.
+
+-   There is no easy way to embed these plots in a notebook for smaller projects.
 
 # Conclusion
