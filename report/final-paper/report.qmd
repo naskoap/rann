@@ -17,9 +17,11 @@ editor: visual
 
 In this project, we compare three different options for the step of hyperparameter tuning within a Python-based machine learning pipeline: 1) Grid Search (which is a standard tool built into machine learning modules in Python, and which represents our control condition), and two external libraries, 2) Hyperopt, and 3) Optuna, which users might apply to a project if they want more control over their tuning process or want to try out a more advanced or efficient algorithm for hyperparamter tuning.
 
-For our comparison, we start with a code review of both external tools based on the code available in their public repositories. We then conduct an experimental comparison where we train and tune a machine learning model using Scikit-Learn in combination with both Hyperopt and Optuna and compare their performance to a standard grid search. As part of this experiment, we generate the UI components provided by Hyperopt and Optuna, and provide a UI review.
+Both Hyperopt and Optuna use advanced algorithms for tuning that involve Bayesian optimization, and both claim to be faster and better performing than standard tools like grid search. Both also include UI capabilities that help the user to visualize the tuning process, something which Grid Search does not provide. For more information on how Hyperopt and Optuna work, and how they differ from Grid Search, see the README file located [here](https://github.com/naskoap/rann/tree/main/experiment).
 
-# Code Review: 
+For our comparison, we start with a code review of both external tools based on the code available in their public repositories, reviewing both the repository itself (in terms of maintenance and user interaction) and non-functional requirements. We then conduct an experimental comparison where we train and tune machine learning models on both regression and classification datasets using Scikit-Learn. We compare their performance both to each other and to a standard Grid Search in terms of processing time and model performance. As part of this experiment, we also generate the UI components provided by Hyperopt and Optuna and review their pros and cons.
+
+# Code Review
 
 ## Hyperopt ([GitHub](https://github.com/hyperopt/hyperopt))
 
@@ -211,6 +213,8 @@ Examples like this were one area Hyperopt fell quite short. The official documen
 
 It contains full examples written out in pretty much *every* Python machine learning library out there, including `keras`, `pytorch`, `tensorflow`, and `sklearn`. Each example is well documented and contains a unique set of requirements telling the user which software versions they need installed to run the example. This is about as well documented of an example guide as you can create!
 
+There is also good documentation provided for how to generate the UI dashboard step by step,
+
 Optuna's [official documentation site](https://optuna.readthedocs.io/en/stable/index.html) is also excellent. It includes a link to a YouTube overview of the tool and a walkthrough of key features of Optuna compared with other hyperparamter optimizers. It also has a full API reference guide with documentation of different classes and functions. Finally, it provides an extensive FAQ page providing detailed answers (including code snippets) to common questions.
 
 The documentation is very easy to find and well organized. All sites linked in the README are also up to date.
@@ -223,7 +227,7 @@ There are also other nice features. For example, the authors have a full guide f
 
 Function documentation is also quite good. Most functions have a full docstring, particularly if they are user facing.
 
-However, not all functions have one. Some back end functions that aren't provided to the user are missing docstrings. This could make it more difficult for open source contributors to understand these functions. Additionally, some functions have smaller line-by-line type comments, but these are relatively minimal.
+However, not all functions have one. Some back end functions that aren't provided to the user are missing docstrings. This could make it more difficult for open source contributors to understand these functions. Additionally, some functions have smaller line-by-line type comments, but these are relatively minimal. There is also not much documentation on the features contained within the UI dashboard, which would be nice to have.
 
 #### Testability/Debuggability **`(Score: 9/10)`**
 
@@ -442,7 +446,7 @@ Hyperopt has three plotting functions, the results of which are displayed below:
 
 -   Some of the information does not seem all that useful. Not sure why someone would need to know the information provided by the loss histogram, as this would not really help influence how a model gets tuned (since we mostly care about just the optimal value, rather than the distribution).
 
--   A basic-graph-based visualization tool is great for small scale work, but not as good for production level work in industry, where an interactive dashboard is preferred.
+-   A basic-graph-based visualization tool is great for small scale work, but not as good for production level work in industry.
 
 ### Scores
 
@@ -456,13 +460,15 @@ Hyperopt has three plotting functions, the results of which are displayed below:
 
 ## Optuna
 
-Optuna has an interactive dashboard that opens up in a web browser. This is not easily captured with images, so instead, we created the dashboard and then recording ourselves scrolling through it and interacting with different graphs. The recording can be viewed [here](https://drive.google.com/file/d/1DsS_wibUr-DK0hWDWvgwG1eJEUXoL4r5/view?usp=share_link).
+Optuna has a web-based interactive dashboard. To capture the full experience, we created the dashboard and then recording ourselves scrolling through it and interacting with different graphs. The recording can be viewed [here](https://drive.google.com/file/d/1DsS_wibUr-DK0hWDWvgwG1eJEUXoL4r5/view?usp=share_link).
+
+![](images/optuna-graph.png){fig-align="center" width="481"}
 
 ### Pros
 
 -   Wide variety of plots showing lots of different information (and much more information than provided by Hyperopt). Some plots seem very useful, such as one that shows how important each different parameter was to the overall tuning process.
 
--   The history plot is much easier to follow than Hyperopt, as it has an clear trend for the most optimal value over time, which is separated out from the rest of the data points.
+-   The history plot (shown in the image above) is much easier to follow than the equivalent plot in Hyperopt, as it has an clear trend for the most optimal value over time, which is separated out from the rest of the data points.
 
 -   Plots are interactive, allowing users to hover around data points to access further information on these points and visualize them in scale.
 
