@@ -10,7 +10,7 @@
 
 Hyperopt and Optuna are two Python-based tools designed to help with the step of __hyperparameter optimization__ in a machine learning pipeline. Both have UI features that allow users to compare the performance of different parameter combinations, and both integrate with standard Python ML libraries, including `scikit-learn` and `Tensorflow`.
 
-Official resources for Hyperopt and Optuna are provided below:
+Official resources for Hyperopt and Optuna are provided below, and more information on these tools (and hyperparmaeter tuning in general) can be found in the README within the `/experiment` folder of this project.
 
 #### Hyperopt:
 
@@ -25,7 +25,7 @@ Official resources for Hyperopt and Optuna are provided below:
 - Website (includes documentation and tutorials): https://optuna.org
 
 
-In this project, we compare the two tools to one another AND to how many people might complete the hyperparameterparameter optimization without a tool (grid search).
+In this project, we compare the two tools to one another AND to how many people might complete the hyperparameter optimization without a tool (grid search).
 
 There are three different parts to this comparison:
 1. A code review of the official repositories

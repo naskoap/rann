@@ -325,13 +325,13 @@ In order to keep the results consistent, we maintained the following across our 
 
 -   **Predictors --** We used the exact same set of predictor columns to predict our outcome variable in each dataset (all columns of the data other than the target). Since the train test split was identical, this means an exact data copy/set of predictor and target values across all conditions.
 
--   **Hyperparameters.** We tuned the same set of three hyperparameters in all of our tests: `n_estimators`, `max_depth`, `max_features`.
+-   **Hyperparameters --** We tuned the same set of three hyperparameters in all of our tests: `n_estimators`, `max_depth`, `max_features`.
 
--   **Hyperparameter ranges.** We used the same range of hyperparameters for each tool as well. For grid search, we provided the following grid: `max_depth`: \[5, 7, 10, 15\], `max_features`: \[3, 5, 8, 10\], `n_estimators`: \[50, 150, 200, 300\]. For Hyperopt and Optuna, rather than pre-selecting values, you provide a range. We provided the following integer ranges, so that they exactly overlapped: `max_depth`: 5-15, `max_features`: 3-10, `n_estimators`: 50-300.
+-   **Hyperparameter ranges --** We used the same range of hyperparameters for each tool as well. For grid search, we provided the following grid: `max_depth`: \[5, 7, 10, 15\], `max_features`: \[3, 5, 8, 10\], `n_estimators`: \[50, 150, 200, 300\]. For Hyperopt and Optuna, rather than pre-selecting values, you provide a range. We provided the following integer ranges, so that they exactly overlapped: `max_depth`: 5-15, `max_features`: 3-10, `n_estimators`: 50-300.
 
--   **Metrics.** Within the classification and regression conditions, we used the same metrics to score each tool. Hyperopt and Optuna also require us to select a specific metric to maximize or minimize. We used the same metric for each tool.
+-   **Metrics --** Within the classification and regression conditions, we used the same metrics to score each tool. Hyperopt and Optuna also require us to select a specific metric to maximize or minimize. We used the same metric for each tool.
 
--   **Computer.** To keep computing power consistent and make tuning time meaningful, each experiment was executed on the same laptop with the same settings.
+-   **Computer --**To keep computing power consistent and make tuning time meaningful, each experiment was executed on the same laptop with the same settings.
 
 For each trial, we completed the same steps:
 
