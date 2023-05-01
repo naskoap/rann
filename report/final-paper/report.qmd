@@ -511,3 +511,41 @@ If we were to make a recommendation based on this knowledge, we would say the fo
 -   For Optuna, the official examples should provide a solid starting point for documentation, but there are also other resources online if needed. These will specifically be necessary if trying to integrate Optuna with other tools, as this information is not provided in the documentation.
 
 # References
+
+### Hyperopt Official Documentation
+
+-   Official Repository: https://github.com/hyperopt/hyperopt
+
+-   Official Documentation: http://hyperopt.github.io/hyperopt/
+
+-   Hyperopt: a Python library for model selection and hyperparameter optimization (Bergstra et al, 2015): https://dx.doi.org/10.1088/1749-4699/8/1/014008
+
+### Optuna Official Documentation
+
+-   Official Repository: https://github.com/optuna/optuna
+
+-   Code Examples: https://github.com/optuna/optuna-examples/
+
+-   UI Dashboard: https://github.com/optuna/optuna-dashboard
+
+-   Website: https://optuna.org
+
+-   Optuna: A Next-generation Hyperparameter Optimization Framework (Akiba et al, 2019): https://dl.acm.org/doi/pdf/10.1145/3292500.3330701
+
+### Other Resources + Unofficial Coding Examples
+
+-   A Comparative Study of Hyper-Parameter Optimization Tools (Shekhar et al, 2022): https://arxiv.org/pdf/2201.06433.pdf
+
+-   Scikit-Learn Grid Search Documentation: https://scikit-learn.org/stable/modules/grid_search.html#exhaustive-grid-search
+
+-   Grid Search Examples: https://towardsdatascience.com/hyperparameter-tuning-the-random-forest-in-python-using-scikit-learn-28d2aa77dd74
+
+-   Unofficial Code Examples for Optuna and Hyperopt:
+
+    -   [Optuna #1](https://towardsdatascience.com/optuna-a-flexible-efficient-and-scalable-hyperparameter-optimization-framework-d26bc7a23fff)
+
+    -   [Optuna #2](https://towardsdatascience.com/exploring-optuna-a-hyper-parameter-framework-using-logistic-regression-84bd622cd3a5)
+
+    -   [Hyperopt #1](https://www.kaggle.com/code/virajbagal/eda-xgb-random-forest-parameter-tuning-hyperopt/notebook)
+
+    -   [Hyperopt #2](https://www.analyticsvidhya.com/blog/2020/09/alternative-hyperparameter-optimization-technique-you-need-to-know-hyperopt/)
