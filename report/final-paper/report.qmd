@@ -413,7 +413,12 @@ Based on this experiment, Optuna's version of this metric customization is much 
 
 # UI Review
 
-During the experiment, we implemented the available UI features in each of our two external tools. In this section, we summarize what those features are and the pros and cons we found for each based on our use.
+During the experiment, we implemented the available UI features in each of our two external tools. In this section, we summarize what those features are and the pros and cons we found for each based on our use. Finally, we rate each tool from 1-10 in terms of four different categories:
+
+1.  **Ease of Coding** -- How easy it was to generate the plots coming from no prior experience with the tool.
+2.  **Appearance** -- How nice the visuals look / whether any graphs are clearly labeled / how easy it is to understand the graphs just by looking at them.
+3.  **Added Information** -- How the tools assist the user by giving useful information about the tuning process/
+4.  **Productionalizability** -- How "ready" the UI output is to be used in a production type environment.
 
 ## Hyperopt
 
@@ -439,6 +444,16 @@ Hyperopt has three plotting functions, the results of which are displayed below:
 
 -   A basic-graph-based visualization tool is great for small scale work, but not as good for production level work in industry, where an interactive dashboard is preferred.
 
+### Scores
+
+-   **Ease of Coding** -- `6/10` (Only takes a few lines of code, but the documentation is not clear on what steps are required)
+
+-   **Appearance** -- `3/10` (Some graphs are missing titles, all are super basic and no nicer than what the user could generate themselves, and some of the graphs are a little clunky and hard to read)
+
+-   **Added Information** -- `2/10` (The third graph is completely unintelligible and the others don't show that much useful information)
+
+-   **Productionalizability** -- `2/10` (The graphs only work well for embedding in a notebook and don't look anywhere near production ready)
+
 ## Optuna
 
 Optuna has an interactive dashboard that opens up in a web browser. This is not easily captured with images, so instead, we created the dashboard and then recording ourselves scrolling through it and interacting with different graphs. The recording can be viewed [here](https://drive.google.com/file/d/1DsS_wibUr-DK0hWDWvgwG1eJEUXoL4r5/view?usp=share_link).
@@ -460,5 +475,15 @@ Optuna has an interactive dashboard that opens up in a web browser. This is not 
 -   The large number of plots might feel overwhelming, especially if users only care about 2 or 3 of them.
 
 -   There is no easy way to embed these plots in a notebook for smaller projects.
+
+### Scores
+
+-   **Ease of Coding** -- `9/10` (Great documentation, only takes a few lines of code)
+
+-   **Appearance** -- `7/10` (Graphs are titled and have clear axes, but scrolling-based system to move between graphs is not necessarily optimal and no way to hide graphs users don't care about)
+
+-   **Added Information** -- `7/10` (Lots of useful graphs, but this information is not always usable without prior domain knowledge & documentation is lacking)
+
+-   **Productionalizability** -- `7/10` (Appearance and web based format are perfect for production environments, but no documentation on how to deploy this other than locally)
 
 # Conclusion
