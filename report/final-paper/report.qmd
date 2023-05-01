@@ -3,10 +3,11 @@ title: "Tool Comparison: Optuna vs Hyperopt"
 author: "Audrey Bertin, Nasko Apostolov, Nelson Evbarunegbe, & Raymond Li"
 format:
   pdf:
-    margin-top: "0.75in"
-    margin-bottom: "0.75in"
-    margin-left: "0.75in"
-    margin-right: "0.75in"
+    fontsize: 8pt
+    margin-top: "0.5in"
+    margin-bottom: "0.5in"
+    margin-left: "0.5in"
+    margin-right: "0.5in"
     include-in-header: 
       text: '\pagenumbering{gobble}'
 editor: visual
@@ -14,26 +15,9 @@ editor: visual
 
 # Introduction
 
-In the field of machine learning, **hyperparameter tuning** is the process of selecting an optimal set of **hyperparameters** for a learning algorithm. Hyperparameters are user-selected parameters applied to learning algorithms that affect how they are implemented--for example, constraints, weights, learning rates, number of algorithm layers/complexity, etc.
+In this project, we compare three different options for the step of hyperparameter tuning within a Python-based machine learning pipeline: 1) Grid Search (which is a standard tool built into machine learning modules in Python, and which represents our control condition), and two external libraries, 2) Hyperopt, and 3) Optuna, which users might apply to a project if they want more control over their tuning process or want to try out a more advanced or efficient algorithm for hyperparamter tuning.
 
-Depending on which set of hyperparameters is selected, the results and performance of a particular machine learning algorithm can vary dramatically. The possible decision space, however, is enormous. In many cases, there are essentially an infinite set of possible combinations for all of the tuning parameters in a model. It is *impossible* to try every single one of them and find the absolute best option--instead, users must select a *good* option.
-
-Typically, in hyperparameter tuning, users will pre-define a list of combinations to try. For example, if they must provide two parameters, $\beta$ and $\lambda$, they might try all combinations of the following:
-
--   $\beta$ = {3, 5, 7, 9}
-
--   $\lambda$ = {0.001, 0.01, 0.1, 1.0}
-
-This technique is known as a **grid search**. It can sometimes produce decent results, but has several main downsides.
-
-1.  The user must themselves define which lists of values to try. This is subjective.
-2.  It is very computationally intensive to try every single combination, one at a time. As the number of parameters increases, the number of combinations grows exponentially.
-
-Several hyperparameter tuning tools have been developed in recent years to help simplify this process and produce better results. Some use parallel computing to test a parameters simultaneously and speed up the training process, Many have UI implementations that can help make it easier for users to compare performance across models. Additionally, modern tuning software often uses advanced mathematical techniques to help the user select the best hyperparameters, such as intelligently moving the tuning in a direction that appears to be associated with increased performance scores scores.
-
-**Hyperopt** (released in 2011) and **Optuna** (released in 2020) and are two industry standard parameter optimization tools designed to integrate with Python. Both have their code publicly available on GitHub, have public documentation pages, and include UI components. For more details, see the Appendix.
-
-In this project, we compare these two tools. We start with a code review of both tools based on the code available in their public repositories. After this, we then conduct an experimental comparison where we train and tune a machine learning model using Scikit-Learn in combination with both Hyperopt and Optuna and compare their performance to a standard grid search. As part of this experiment, we generate the UI components provided by Hyperopt and Optuna, and provide a UI review.
+For our comparison, we start with a code review of both external tools based on the code available in their public repositories. We then conduct an experimental comparison where we train and tune a machine learning model using Scikit-Learn in combination with both Hyperopt and Optuna and compare their performance to a standard grid search. As part of this experiment, we generate the UI components provided by Hyperopt and Optuna, and provide a UI review.
 
 # Code Review: 
 
@@ -231,11 +215,7 @@ Optuna's [official documentation site](https://optuna.readthedocs.io/en/stable/i
 
 The documentation is very easy to find and well organized. All sites linked in the README are also up to date.
 
-The organization of the repository is also quite clear. Each subfolder (that is not obvious in purpose solely by its name, such as "tests") contains its *own* readme, describing its purpose. For example, the benchmarks folder opens to this message:
-
-> # Benchmarks for Optuna
->
-> Interested in measuring Optuna's performance? You are very perceptive. Under this directory, you will find scripts that we have prepared to measure Optuna's performance.
+The organization of the repository is also quite clear. Each subfolder (that is not obvious in purpose solely by its name, such as "tests") contains its *own* readme, describing its purpose.
 
 Folders are also relatively clearly named and there is a high degree of separation. Folders are broken down into subfolders where similar pieces of code are stored together. For example, in the benchmarks folder, there are separate folders for each benchmark technique used for measuring performance.
 
@@ -436,74 +416,3 @@ Based on this experiment, Optuna's version of this metric customization is much 
 ## Optuna
 
 # Conclusion
-
-------------------------------------------------------------------------
-
-# Appendix
-
-#### Details on Hyperopt
-
-Hyperopt is a popular Python library for hyperparameter optimization that has been around--and been considered industry standard--for more than a decade.
-
-It is based on Bayesian optimization techniques, specifically Sequential Model-Based Optimization (SMBO). In [SMBO](https://towardsdatascience.com/a-conceptual-explanation-of-bayesian-model-based-hyperparameter-optimization-for-machine-learning-b8172278050f), trials are run one after another, with each trial updating its hyperparameters by updating a probability model and applying Bayesian reasoning. Its goal is to maximize some "score" by modifying a configuration, and it does this by working to narrow the search space and use advanced algorithms for finding which combination of parameters can maximize the probability model.
-
-Within SMBO, it implements several advanced hyperparameter tuning methods including:
-
--   [Tree-Structured Parzen Estimator](https://proceedings.neurips.cc/paper_files/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf) (TPE)
-
--   [Adaptive Tree of Parzen Estimators](https://ieeexplore.ieee.org/abstract/document/9972596?casa_token=jhDtadtntFUAAAAA:WVA1tbB-x-snPuL1Yo36_kvSEXMVMyiRI6qmM3uhYUFDOCYjKt6UPoKzmI1hWvobdzqb4av4iw) (ATPE)
-
--   [Gaussian Processes](https://papers.nips.cc/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf) (GP)
-
-Hyperopt does not have a full UI implementation, but it does have several built in visualization functions for comparing models.
-
-Hyperopt's code is publicly available on GitHub:
-
--   <https://github.com/hyperopt/hyperopt>
-
-It also has a basic documentation website:
-
--   <http://hyperopt.github.io/hyperopt/>
-
-#### Details on Optuna
-
-Optuna was released into the hyperparameter tuning market at a time when there were already quite a few established and trusted tools available (including the second tool we will discuss--Hyperopt).
-
-Its creators chose to introduce Optuna after they [discovered limitations](https://odsc.com/blog/optuna-an-automatic-hyperparameter-optimization-framework/) in many other existing tuning algorithms, including that they:
-
-1.  Had instability in some environments
-2.  Were not utilizing the newest technology/advancements in hyperparameter optimization
-3.  Did not provide a way to specify which hyperparameters should be tuned directly within the Python code (instead, requiring the user to write special code just for the optimizer)
-
-The creators of Optuna attempted to fill those gaps, advertising the following features:
-
-1.  **Define-By-Run style API** -- An API style that is beginning to become industry standard in deep learning, but had not yet been applied to hyperparameter tuning prior to Optuna. Compared to an older system Define-And-Run. Using Define-By-Run allows users to write more modular code and access more complex hyperparameter spaces.
-2.  **Use of learning curves to prune trials** -- Optuna uses deep learning and gradient boosting algorithms to predict the end result of a training trial before it is over. This can help it quit unpromising trials before they complete, improving efficiency.
-3.  **Parallel distributed optimization** -- Optuna supports distributed optimization, simultaneously running multiple trials. This can dramatically speed up the tuning process and allow the user to increase the scale of how many parameters they can try.
-4.  **Visualization dashboard** - Optuna provides a UI dashboard where users can watch the optimization process and easily compare results from optimization experiments.
-
-Like Hyperopt, the tool uses several advanced algorithms (including Bayesian methods) for tuning that go beyond standard grid search:
-
--   [Tree-Structured Parzen Estimator](https://proceedings.neurips.cc/paper_files/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf) (TPE)
-
--   [Gaussian Processes](https://papers.nips.cc/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf) (GP)
-
--   [Covariance Matrix Adaptation](http://www.cmap.polytechnique.fr/~nikolaus.hansen/cmaartic.pdf) (CMA)
-
--   [Asynchronous Successive Halving Algorithm](https://arxiv.org/pdf/1810.05934.pdf) (ASHA)
-
-These algorithms are similar to those used in Hyperopt, though Hyperopt is missing CMA and ASHA. The inclusion of ASHA in Optuna is particularly of note, as this is a key feature for allowing parallel optimization.
-
-Optuna is framework agnostic, meaning it can easily be integrated with any of Python's machine learning/deep learning frameworks: Scikit-Learn, PyTorch, Tensorflow, etc.
-
-The code for Optuna is publicly available on GitHub:
-
--   <https://github.com/optuna/optuna>
-
-There is a second GitHub page supporting their UI dashboard component, which was released separately:
-
--   <https://github.com/optuna/optuna-dashboard>
-
-Optuna also has a custom website with tutorials, examples, and links to documentation:
-
--   <https://optuna.org>
