@@ -486,4 +486,28 @@ Optuna has an interactive dashboard that opens up in a web browser. This is not 
 
 -   **Productionalizability** -- `7/10` (Appearance and web based format are perfect for production environments, but no documentation on how to deploy this other than locally)
 
-# Conclusion
+# Discussion
+
+Based on our experimental testing, both Hyperopt and Optuna appear to show significantly improved processing speed compared to grid search, as well as advanced features, such as UI components and the ability to custom-define a metric to maximize or minimize.
+
+Optuna claims to have even faster run times due to its parallel processing, but we did not note a significant difference between the speed of Optuna and Hyperopt in this experiment. However, this is potentially because we were working with small data (\<10,000 rows), where parallel processing is less relevant than with large data (\>1 million rows).
+
+For our classification problem, Optuna and Hyperopt performed the approximately the same in terms of model score as Grid Search, but both tools performed better than Grid Search for the regression problem when considering the optimized metric (MSE).
+
+Similar to tuning speed, we did not identify a clear winner between Optuna and Hyperopt in terms of model score. For some metrics, Optuna did slightly better, and for others Hyperopt did, though differences were minimal.
+
+Although performance was relatively even, Optuna was the clear winner of both the code review and UI review, specifically for production-type environments. Optuna has *much* better documentation, a much more advanced and informative UI interface, and is regularly maintained. Hyperopt's documentation is lacking, the code has not been updated in years, and the UI options are very basic and sometimes confusing.
+
+If we were to make a recommendation based on this knowledge, we would say the following:
+
+-   Don't use Grid Search unless working with *very* small data or in situations where you want to fully stay within the `scikit-learn` library. It is *extremely* slow compared to external tools, and does not offer improved performance.
+
+-   If doing a small-scale project in a Jupyter Notebook (or similar), Hyperopt would be a good choice. It is easy to embed the results/plots directly in the notebook, which is great for sharing. Kaggle competitions, class assignments, personal projects, etc. are all good candidates. If working in a production environment that uses MLFlow, it might also be a good option due to easy integration, though production work often prioritizes using software that is regularly maintained.
+
+-   If doing a production project anywhere *other* than MLFlow, *or* one involving large data, Optuna is probably the better choice. It may offer speed advantages in processing large models and the UI dashboard is much more production-ready. The code and results are also easier to explain to stakeholders than Hyperopt.
+
+-   If using Hyperopt, seek out external resources for information on how to code the optimization and be *very* careful about specifying a metric, as it is easy to accidentally set the optimization in the wrong direction.
+
+-   For Optuna, the official examples should provide a solid starting point for documentation, but there are also other resources online if needed. These will specifically be necessary if trying to integrate Optuna with other tools, as this information is not provided in the documentation.
+
+# References
