@@ -3,11 +3,11 @@ title: "Tool Comparison: Optuna vs Hyperopt"
 author: "Audrey Bertin, Nasko Apostolov, Nelson Evbarunegbe, & Raymond Li"
 format:
   pdf:
-    fontsize: 8pt
-    margin-top: "0.5in"
-    margin-bottom: "0.5in"
-    margin-left: "0.5in"
-    margin-right: "0.5in"
+    fontsize: 10pt
+    margin-top: "0.9in"
+    margin-bottom: "0.9in"
+    margin-left: "0.9in"
+    margin-right: "0.9in"
     include-in-header: 
       text: '\pagenumbering{gobble}'
 editor: visual
@@ -15,7 +15,7 @@ editor: visual
 
 # Introduction
 
-In this project, we compare three different options for the step of hyperparameter tuning within a Python-based machine learning pipeline: 1) Grid Search (which is a standard tool built into machine learning modules in Python, and which represents our control condition), and two external libraries, 2) Hyperopt, and 3) Optuna, which users might apply to a project if they want more control over their tuning process or want to try out a more advanced or efficient algorithm for hyperparamter tuning.
+In this project, we compare three different options for the step of hyperparameter tuning within a Python-based machine learning pipeline: 1) Grid Search (which is a standard tool built into machine learning modules in Python, and which represents our control condition), and two external libraries, 2) Hyperopt, and 3) Optuna, which users might apply to a project if they want more control over their tuning process or want to try out a more advanced or efficient algorithm for hyperparameter tuning.
 
 Both Hyperopt and Optuna use advanced algorithms for tuning that involve Bayesian optimization, and both claim to be faster and better performing than standard tools like grid search. Both also include UI capabilities that help the user to visualize the tuning process, something which Grid Search does not provide. For more information on how Hyperopt and Optuna work, and how they differ from Grid Search, see the README file located [here](https://github.com/naskoap/rann/tree/main/experiment).
 
@@ -520,31 +520,37 @@ If we were to make a recommendation based on this knowledge, we would say the fo
 
 ### Hyperopt Official Documentation
 
--   Official Repository: https://github.com/hyperopt/hyperopt
+-   Official Repository: <https://github.com/hyperopt/hyperopt>
 
--   Official Documentation: http://hyperopt.github.io/hyperopt/
+-   Official Documentation: <http://hyperopt.github.io/hyperopt/>
 
--   Hyperopt: a Python library for model selection and hyperparameter optimization (Bergstra et al, 2015): https://dx.doi.org/10.1088/1749-4699/8/1/014008
+-   Hyperopt: a Python library for model selection and hyperparameter optimization (Bergstra et al, 2015): <https://dx.doi.org/10.1088/1749-4699/8/1/014008>
 
 ### Optuna Official Documentation
 
--   Official Repository: https://github.com/optuna/optuna
+-   Official Repository: <https://github.com/optuna/optuna>
 
--   Code Examples: https://github.com/optuna/optuna-examples/
+-   Code Examples: <https://github.com/optuna/optuna-examples/>
 
--   UI Dashboard: https://github.com/optuna/optuna-dashboard
+-   UI Dashboard: <https://github.com/optuna/optuna-dashboard>
 
--   Website: https://optuna.org
+-   Website: <https://optuna.org>
 
--   Optuna: A Next-generation Hyperparameter Optimization Framework (Akiba et al, 2019): https://dl.acm.org/doi/pdf/10.1145/3292500.3330701
+-   Optuna: A Next-generation Hyperparameter Optimization Framework (Akiba et al, 2019):
+
+    <https://dl.acm.org/doi/pdf/10.1145/3292500.3330701>
 
 ### Other Resources + Unofficial Coding Examples
 
--   A Comparative Study of Hyper-Parameter Optimization Tools (Shekhar et al, 2022): https://arxiv.org/pdf/2201.06433.pdf
+-   A Comparative Study of Hyper-Parameter Optimization Tools (Shekhar et al, 2022):
 
--   Scikit-Learn Grid Search Documentation: https://scikit-learn.org/stable/modules/grid_search.html#exhaustive-grid-search
+    <https://arxiv.org/pdf/2201.06433.pdf>
 
--   Grid Search Examples: https://towardsdatascience.com/hyperparameter-tuning-the-random-forest-in-python-using-scikit-learn-28d2aa77dd74
+-   Scikit-Learn Grid Search Documentation:
+
+    <https://scikit-learn.org/stable/modules/grid_search.html#exhaustive-grid-search>
+
+-   Grid Search Examples: <https://towardsdatascience.com/hyperparameter-tuning-the-random-forest-in-python-using-scikit-learn-28d2aa77dd74>
 
 -   Unofficial Code Examples for Optuna and Hyperopt:
 
